@@ -5,6 +5,9 @@
 
 void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, string &playerH, string &playerAI, bool &chosenPlayer);
 void drawBoard(sf::RenderWindow &window);
+int convertClick(sf::Vector2i v);
+void drawMove(Point* p);
+void displayEnding(sf::RenderWindow &window, string winner, vector<vector< string > > &board, bool &chosenPlayer, sf::Font font, sf::Event &event);
 
 int main()
 {   
@@ -132,7 +135,7 @@ void drawMove(Point* p)
 }
 
 // Display winner and ask user to play again
-void displayWinner(sf::RenderWindow &window, string winner, vector<vector< string > > &board, bool &chosenPlayer, sf::Font font, sf::Event &event)
+void displayEnding(sf::RenderWindow &window, string winner, vector<vector< string > > &board, bool &chosenPlayer, sf::Font font, sf::Event &event)
 {
     //TODO
 }
