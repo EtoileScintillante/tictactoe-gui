@@ -70,8 +70,16 @@ int main()
             window.draw(text);
             window.draw(textX);
             window.draw(textO);
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+                if (textX.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) {
+                    cout << "pressed X" << endl;
+                }
+                if (textO.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) {
+                    cout << "pressed O" << endl;
+                }
+            }
         }
-        
+
         else {
             window.draw(hline1);
             window.draw(hline2);
