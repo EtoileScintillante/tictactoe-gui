@@ -160,6 +160,14 @@ int convertClick(sf::Vector2i v)
 // Convert move to drawing on the window
 void drawMove(Point* p)
 {
+    sf::Vector2f v;
+    sf::Text text;
+    string s;
+
+    if (p->x == 0 && p->y == 0) {
+        v.x = 60;
+        v.y = 30;
+    }
     //TODO
 }
 
