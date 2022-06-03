@@ -4,6 +4,7 @@
 #include "headers/ttt.h"
 
 void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, string &playerH, string &playerAI, bool &chosenPlayer);
+void drawBoard(sf::RenderWindow &window);
 
 int main()
 {   
@@ -22,18 +23,6 @@ int main()
         cout << "Font could not be loaded from file" << endl;
         return 1;
     }
-
-    // Creating the lines to draw a 3 x 3 board
-    sf::RectangleShape hline1(sf::Vector2f(600, 5)); // Horizontal
-    hline1.move(sf::Vector2f(0, 200));
-    sf::RectangleShape hline2(sf::Vector2f(600, 5)); // Horizontal
-    hline2.move(sf::Vector2f(0, 400));
-    sf::RectangleShape vline1(sf::Vector2f(600, 5)); // Vertical
-    vline1.move(sf::Vector2f(200, 0));
-    vline1.rotate(sf::degrees(90));
-    sf::RectangleShape vline2(sf::Vector2f(600, 5)); // Vertical
-    vline2.move(sf::Vector2f(400, 0));
-    vline2.rotate(sf::degrees(90));
     
     // Game loop
     while (window.isOpen())
@@ -54,10 +43,7 @@ int main()
 
         // Draw board of user has chosen a player
         else {
-            window.draw(hline1);
-            window.draw(hline2);
-            window.draw(vline1);
-            window.draw(vline2);
+            drawBoard(window);
         }
 
         window.display();
@@ -112,4 +98,23 @@ void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, string
             chosenPlayer = true;
         }
     }
+}
+
+// Draw the board (the lines)
+void drawBoard(sf::RenderWindow &window) 
+{
+    sf::RectangleShape hline1(sf::Vector2f(600, 5)); // Horizontal
+    hline1.move(sf::Vector2f(0, 200));
+    sf::RectangleShape hline2(sf::Vector2f(600, 5)); // Horizontal
+    hline2.move(sf::Vector2f(0, 400));
+    sf::RectangleShape vline1(sf::Vector2f(600, 5)); // Vertical
+    vline1.move(sf::Vector2f(200, 0));
+    vline1.rotate(sf::degrees(90));
+    sf::RectangleShape vline2(sf::Vector2f(600, 5)); // Vertical
+    vline2.move(sf::Vector2f(400, 0));
+    vline2.rotate(sf::degrees(90));
+    window.draw(hline1);
+    window.draw(hline2);
+    window.draw(vline1);
+    window.draw(vline2);
 }
