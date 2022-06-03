@@ -118,3 +118,21 @@ void drawBoard(sf::RenderWindow &window)
     window.draw(vline1);
     window.draw(vline2);
 }
+
+// Convert mouse click to move
+int convertClick(sf::Vector2i v)
+{
+    //TODO
+}
+
+// Convert move to drawing on the window
+void drawMove(Point* p)
+{
+    //TODO
+}
+
+// Display winner and ask user to play again
+void displayWinner(sf::RenderWindow &window, string winner, vector<vector< string > > &board, bool &chosenPlayer, sf::Font font, sf::Event &event)
+{
+    //TODO
+}
