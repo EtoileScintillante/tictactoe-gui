@@ -125,7 +125,36 @@ void drawBoard(sf::RenderWindow &window)
 // Convert mouse click to move
 int convertClick(sf::Vector2i v)
 {
-    //TODO
+    int x = v.x;
+    int y = v.y;
+
+    if (x >= 0 && v.x < 200 && y >= 0 && y < 200) {
+        return 1;
+    }
+    if (x >= 200 && x < 400 && y >= 0 && y < 200) {
+        return 2;
+    }
+    if (x >= 400 && x < 600 && y >= 0 && y < 200) {
+        return 3;
+    }
+    if (x >= 0 && x < 200 && y >= 200 && y < 400) {
+        return 4;
+    }
+    if (x >= 200 && x < 400 && y >= 200 && y < 400) {
+        return 5;
+    }
+    if (x >= 400 && x < 600 && y >= 200 && y < 400) {
+        return 6;
+    }
+    if (x >= 0 && x < 200 && y >= 400 && y < 600) {
+        return 7;
+    }
+    if (x >= 200 && x < 400 && y >= 400 && y < 600) {
+        return 8;
+    }
+    if (x >= 400 && x < 600 && y >= 400 && y < 600) {
+        return 9;
+    }
 }
 
 // Convert move to drawing on the window
