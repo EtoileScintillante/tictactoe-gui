@@ -32,7 +32,7 @@ int main()
     vline2.move(sf::Vector2f(400, 0));
     vline2.rotate(sf::degrees(90));
     
-
+    // Game loop
     while (window.isOpen())
     {
         sf::Event event;
@@ -50,8 +50,26 @@ int main()
             rectangle.setFillColor(sf::Color(0,0,0));
             rectangle.setOutlineThickness(10.f);
             rectangle.setPosition(sf::Vector2f(100, 200));
-            sf::Text text;
+            sf::Text text, textX, textO;
+            text.setFont(font);
+            textX.setFont(font);
+            textO.setFont(font);
+            text.setString("Choose player:");
+            textX.setString("X");
+            textO.setString("O");
+            text.setCharacterSize(30);
+            textX.setCharacterSize(45);
+            textO.setCharacterSize(45);
+            text.setPosition(sf::Vector2f(200, 220));
+            textX.setPosition(sf::Vector2f(200, 280));
+            textO.setPosition(sf::Vector2f(370, 280));
+            text.setStyle(sf::Text::Bold);
+            textX.setStyle(sf::Text::Bold);
+            textO.setStyle(sf::Text::Bold);
             window.draw(rectangle);
+            window.draw(text);
+            window.draw(textX);
+            window.draw(textO);
         }
         else {
             window.draw(hline1);
