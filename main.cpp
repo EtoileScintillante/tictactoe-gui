@@ -71,6 +71,7 @@ int main()
             window.draw(textX);
             window.draw(textO);
         }
+        
         else {
             window.draw(hline1);
             window.draw(hline2);
