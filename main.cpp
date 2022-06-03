@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "headers/ttt.h"
 
 int main()
 {   
