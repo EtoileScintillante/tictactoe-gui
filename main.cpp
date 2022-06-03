@@ -1,6 +1,9 @@
 #include <SFML/Graphics.hpp>
 #include <stdexcept>
+#include <SFML/System.hpp>
 #include "headers/ttt.h"
+
+void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, string &playerH, string &playerAI, bool &chosenPlayer);
 
 int main()
 {   
@@ -46,40 +49,10 @@ int main()
 
         // Let user choose player 
         if (chosenPlayer == false) {
-            sf::RectangleShape rectangle(sf::Vector2f(400.f, 150.f));
-            rectangle.setFillColor(sf::Color(0,0,0));
-            rectangle.setOutlineThickness(10.f);
-            rectangle.setPosition(sf::Vector2f(100, 200));
-            sf::Text text, textX, textO;
-            text.setFont(font);
-            textX.setFont(font);
-            textO.setFont(font);
-            text.setString("Choose player:");
-            textX.setString("X");
-            textO.setString("O");
-            text.setCharacterSize(30);
-            textX.setCharacterSize(45);
-            textO.setCharacterSize(45);
-            text.setPosition(sf::Vector2f(200, 220));
-            textX.setPosition(sf::Vector2f(200, 280));
-            textO.setPosition(sf::Vector2f(370, 280));
-            text.setStyle(sf::Text::Bold);
-            textX.setStyle(sf::Text::Bold);
-            textO.setStyle(sf::Text::Bold);
-            window.draw(rectangle);
-            window.draw(text);
-            window.draw(textX);
-            window.draw(textO);
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-                if (textX.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) {
-                    cout << "pressed X" << endl;
-                }
-                if (textO.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) {
-                    cout << "pressed O" << endl;
-                }
-            }
+            setPlayer(window, font, event, playerH, playerAI, chosenPlayer);
         }
 
+        // Draw board of user has chosen a player
         else {
             window.draw(hline1);
             window.draw(hline2);
@@ -91,4 +64,52 @@ int main()
     }
 
     return 0;
+}
+
+// Let the user pick a side, X or O
+void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, string &playerH, string &playerAI, bool &chosenPlayer)
+{
+    sf::RectangleShape rectangle(sf::Vector2f(400.f, 150.f));
+    rectangle.setFillColor(sf::Color(0,0,0));
+    rectangle.setOutlineThickness(10.f);
+    rectangle.setPosition(sf::Vector2f(100, 200));
+    sf::Text text, textX, textO;
+    text.setFont(font);
+    textX.setFont(font);
+    textO.setFont(font);
+    text.setString("Choose player:");
+    textX.setString("X");
+    textO.setString("O");
+    text.setCharacterSize(30);
+    textX.setCharacterSize(45);
+    textO.setCharacterSize(45);
+    text.setPosition(sf::Vector2f(200, 220));
+    textX.setPosition(sf::Vector2f(200, 280));
+    textO.setPosition(sf::Vector2f(370, 280));
+    text.setStyle(sf::Text::Bold);
+    textX.setStyle(sf::Text::Bold);
+    textO.setStyle(sf::Text::Bold);
+    window.draw(rectangle);
+    window.draw(text);
+    window.draw(textX);
+    window.draw(textO);
+    if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) 
+    {
+        if (textX.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) 
+        {
+            playerH = X;
+            playerAI = O;
+            sf::sleep(sf::Time(sf::seconds(0.5)));
+            window.clear();
+            chosenPlayer = true;
+        }
+        if (textO.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) 
+        {
+            playerH = O;
+            playerAI = X;
+            sf::sleep(sf::Time(sf::seconds(0.5)));
+            window.clear();
+            chosenPlayer = true;
+        }
+    }
 }
