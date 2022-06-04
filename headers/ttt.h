@@ -138,12 +138,12 @@ void deleteVect(vector<Point*> v) {
 }
 
 // Return winner of the game, if there is one
-string winner(vector<vector< string > > board) {
+string winner (vector<vector< string > > board) {
 
     // Create vector to store all possoible winner options
     vector<vector<string > > winOptions;
 
-    //int i;
+    int i;
     // Add horizontal options
     for (int i = 0; i < board.size(); i++) {
         winOptions.push_back(board[i]);
@@ -157,11 +157,11 @@ string winner(vector<vector< string > > board) {
     winOptions.push_back(tlbr);
 
     // Add diagonal option (top right to bottom left)
-    vector<string> tpbl;
+    vector<string> trbl;
     for (int i = 0; i < ROW; i++) {
-        tpbl.push_back(board[i][2 - i]);
+        trbl.push_back(board[i][2 - i]);
     }
-    winOptions.push_back(tpbl);
+    winOptions.push_back(trbl);
 
     // Add vertical options
     vector<string> vert1;
