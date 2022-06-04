@@ -155,8 +155,49 @@ sf::Vector2f MoveToPos(Point* p)
 }
 
 // Display winner and ask user to play again
-void displayEnding(sf::RenderWindow &window, string winner, vector<vector< string > > &board, bool &chosenPlayer, sf::Font font, sf::Event &event)
+void displayEnding(sf::RenderWindow &window, string winner, vector<vector< string > > &board, bool &chosenPlayer, sf::Font font, sf::Event &event, vector<sf::Text> &v)
 {
-    //TODO
+    sf::RectangleShape rectangle(sf::Vector2f(400.f, 150.f));
+    rectangle.setFillColor(sf::Color(0,0,0));
+    rectangle.setOutlineThickness(10.f);
+    rectangle.setPosition(sf::Vector2f(100, 200));
+    sf::Text text, textY, textN;
+    text.setFont(font);
+    textY.setFont(font);
+    textN.setFont(font);
+    text.setString("Player " + winner + " won! Play again?");
+    textY.setString("Yes");
+    textN.setString("No");
+    text.setCharacterSize(30);
+    textY.setCharacterSize(45);
+    textN.setCharacterSize(45);
+    text.setPosition(sf::Vector2f(200, 220));
+    textY.setPosition(sf::Vector2f(200, 280));
+    textN.setPosition(sf::Vector2f(370, 280));
+    text.setStyle(sf::Text::Bold);
+    textY.setStyle(sf::Text::Bold);
+    textN.setStyle(sf::Text::Bold);
+    textY.setFillColor(sf::Color::Green);
+    textN.setFillColor(sf::Color::Red);
+    window.draw(rectangle);
+    window.draw(text);
+    window.draw(textY);
+    window.draw(textN);
+    if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) 
+    {
+        if (textY.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) 
+        {
+            sf::sleep(sf::Time(sf::seconds(0.3)));
+            window.clear();
+            chosenPlayer = false;
+            v.clear();
+            board = initialState();
+        }
+        if (textN.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) 
+        {
+            sf::sleep(sf::Time(sf::seconds(0.3)));
+            window.close();
+        }
+    }
 }
 
