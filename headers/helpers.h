@@ -72,6 +72,7 @@ void drawBoard(sf::RenderWindow &window)
 }
 
 // Convert mouse click to move
+// The integer is used in the moveConverter() function in ttt.h
 int convertClick(sf::Vector2i v)
 {
     int x = v.x;
@@ -159,9 +160,3 @@ void displayEnding(sf::RenderWindow &window, string winner, vector<vector< strin
     //TODO
 }
 
-// Free allocated memory
-void freeMemory(vector<Point*> v) {
-    for (int i = 0; i < v.size(); i++) {
-        delete v[i];
-    }
-}
