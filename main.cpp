@@ -77,14 +77,23 @@ int main()
                 sf::sleep(sf::Time(sf::seconds(0.3)));
             }
 
-            /// DRAW MOVES ///
+            /// DRAW ALL THE MADE MOVES ///
             for (int i = 0; i < vt.size(); i++) {
                 window.draw(vt[i]);
             }
 
             if (terminal(b) == true) {
-                cout << "END" << endl;
-                return 0;
+                string winningPlayer = winner(b);
+                if (winningPlayer == playerH) {
+                    winningPlayer = "Human won!";
+                }
+                else if (winningPlayer == playerAI) {
+                    winningPlayer = "AI won!";
+                }
+                else {
+                    winningPlayer = "It's a tie!";
+                }
+                displayEnding(window, winningPlayer, b, chosenPlayer, font, event, vt);
             }
         }
 
