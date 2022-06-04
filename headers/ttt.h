@@ -138,7 +138,7 @@ void deleteVect(vector<Point*> v) {
 }
 
 // Return winner of the game, if there is one
-string winner (vector<vector< string > > board) {
+string winner(vector<vector< string > > board) {
 
     // Create vector to store all possoible winner options
     vector<vector<string > > winOptions;
