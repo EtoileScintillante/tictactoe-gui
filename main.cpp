@@ -13,7 +13,7 @@ int main()
     bool chosenPlayer = false;
 
     // Initialize vector to store users moves
-    vector<sf::Text> p;
+    vector<Point*> p;
 
     // Load font
     sf::Font font;
@@ -33,8 +33,6 @@ int main()
                 window.close();
         }
 
-        window.clear();
-
         // Let user choose player 
         if (chosenPlayer == false) {
             setPlayer(window, font, event, playerH, playerAI, chosenPlayer);
@@ -42,8 +40,32 @@ int main()
         }
 
         // Draw board of user has chosen a player
-        if (chosenPlayer == true) {
+        else {
+            window.clear();
             drawBoard(window);
+
+            string currPlayer = player(b);
+            if (currPlayer == playerH) {
+                if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+                    int cell = convertClick(sf::Mouse::getPosition(window));
+                    Point* move = moveConverter(cell);
+                    b = result(b, move);
+                    p.__emplace_back(move);
+                    printBoard(b);
+                    sf::sleep(sf::Time(sf::seconds(0.3)));
+                }
+            }
+            else {
+                Point move = minimax(b);
+                b = result(b, &move);
+                p.__emplace_back(&move);
+                sf::Vector2f pos = MoveToPos(&move);
+            }
+
+            if (terminal(b) == true) {
+                cout << "END" << endl;
+                return 0;
+            }
         }
 
        window.display();
