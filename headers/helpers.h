@@ -170,15 +170,16 @@ void displayEnding(sf::RenderWindow &window, string winner, vector<vector< strin
     text.setCharacterSize(30);
     text1.setCharacterSize(30);
     text.setPosition(sf::Vector2f(180, 220));
-    text1.setPosition(sf::Vector2f(150, 280));
+    text1.setPosition(sf::Vector2f(130, 280));
     text.setStyle(sf::Text::Bold);
     window.draw(rectangle);
     window.draw(text);
+    window.draw(text1);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
     {
         v.clear();
-        board = initialState();
         window.clear();
+        board = initialState();
         chosenPlayer = false;
         gameover = false;
         sf::sleep(sf::Time(sf::seconds(0.5)));
