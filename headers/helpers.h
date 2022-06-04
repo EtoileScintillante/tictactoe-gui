@@ -166,11 +166,11 @@ void displayEnding(sf::RenderWindow &window, string winner, vector<vector< strin
     text.setFont(font);
     text1.setFont(font);
     text.setString(winner + " Play again?");
-    text1.setString("Press [y] for yes or [n] for no");
+    text1.setString("Press [y] or [n]");
     text.setCharacterSize(30);
     text1.setCharacterSize(30);
     text.setPosition(sf::Vector2f(180, 220));
-    text1.setPosition(sf::Vector2f(130, 280));
+    text1.setPosition(sf::Vector2f(210, 280));
     text.setStyle(sf::Text::Bold);
     window.draw(rectangle);
     window.draw(text);
