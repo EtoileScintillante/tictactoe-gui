@@ -156,7 +156,7 @@ sf::Vector2f MoveToPos(Point* p)
 }
 
 // Display winner and ask user to play again
-void displayEnding(sf::RenderWindow &window, string winner, vector<vector< string > > &board, bool &chosenPlayer, sf::Font font, sf::Event &event, vector<sf::Text> &v)
+void displayEnding(sf::RenderWindow &window, string winner, vector<vector< string > > &board, bool &chosenPlayer, sf::Font font, sf::Event &event, vector<sf::Text> &v, bool &gameover)
 {
     sf::RectangleShape rectangle(sf::Vector2f(400.f, 150.f));
     rectangle.setFillColor(sf::Color(0,0,0));
@@ -180,6 +180,7 @@ void displayEnding(sf::RenderWindow &window, string winner, vector<vector< strin
         board = initialState();
         window.clear();
         chosenPlayer = false;
+        gameover = false;
         sf::sleep(sf::Time(sf::seconds(0.5)));
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::N)) 
