@@ -108,55 +108,49 @@ int convertClick(sf::Vector2i v)
     return -1;
 }
 
-// Convert move to text which can be displayed on the window
-sf::Text MoveToText(Point* p, string player, sf::Font font, sf::RenderWindow &window)
+// Convert move to a position on the board
+sf::Vector2f MoveToPos(Point* p)
 {
     sf::Vector2f v;
-    sf::Text text;
-    string s = player;
 
     if (p->x == 0 && p->y == 0) {
         v.x = 60;
         v.y = 30;
     }
     if (p->x == 1 && p->y == 0) {
-        v.x = 260;
-        v.y = 30;
-    }
-    if (p->x == 2 && p->y == 0) {
-        v.x = 460;
-        v.y = 30;
-    }
-    if (p->x == 0 && p->y == 1) {
         v.x = 60;
         v.y = 230;
+    }
+    if (p->x == 2 && p->y == 0) {
+        v.x = 60;
+        v.y = 430;
+    }
+    if (p->x == 0 && p->y == 1) {
+        v.x = 260;
+        v.y = 30;
     }
     if (p->x == 1 && p->y == 1) {
         v.x = 260;
         v.y = 230;
     }
     if (p->x == 2 && p->y == 1) {
-        v.x = 460;
-        v.y = 230;
-    }
-    if (p->x == 0 && p->y == 2) {
-        v.x = 60;
-        v.y = 430;
-    }
-    if (p->x == 1 && p->y == 2) {
         v.x = 260;
         v.y = 430;
+    }
+    if (p->x == 0 && p->y == 2) {
+        v.x = 460;
+        v.y = 30;
+    }
+    if (p->x == 1 && p->y == 2) {
+        v.x = 460;
+        v.y = 230;
     }
     if (p->x == 2 && p->y == 2) {
         v.x = 460;
         v.y = 430;
     }
 
-    text.setString(s);
-    text.setFont(font);
-    text.setCharacterSize(120);
-    text.setPosition(v);
-    return text;
+    return v;
 }
 
 // Display winner and ask user to play again
