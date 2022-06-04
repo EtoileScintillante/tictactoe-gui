@@ -12,8 +12,7 @@ int main()
     string playerH, playerAI;
     bool chosenPlayer = false;
 
-    // Initialize vector to store users moves
-    vector<Point*> p;
+    // Initialize vector to store text drawings
     vector<sf::Text> vt;
 
     // Load font
@@ -85,8 +84,6 @@ int main()
 
             if (terminal(b) == true) {
                 cout << "END" << endl;
-                freeMemory(p);
-                p.clear();
                 return 0;
             }
         }
