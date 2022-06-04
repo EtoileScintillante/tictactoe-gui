@@ -164,3 +164,9 @@ void displayEnding(sf::RenderWindow &window, string winner, vector<vector< strin
 {
     //TODO
 }
+
+void freeMemory(vector<Point*> v) {
+    for (int i = 0; i < v.size(); i++) {
+        delete v[i];
+    }
+}
