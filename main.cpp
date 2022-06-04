@@ -6,7 +6,7 @@
 void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, string &playerH, string &playerAI, bool &chosenPlayer);
 void drawBoard(sf::RenderWindow &window);
 int convertClick(sf::Vector2i v);
-void drawMove(Point* p);
+void drawMove(Point* p, vector<vector< string > > &board, sf::Font font, sf::RenderWindow &window);
 void displayEnding(sf::RenderWindow &window, string winner, vector<vector< string > > &board, bool &chosenPlayer, sf::Font font, sf::Event &event);
 
 int main()
@@ -158,17 +158,54 @@ int convertClick(sf::Vector2i v)
 }
 
 // Convert move to drawing on the window
-void drawMove(Point* p)
+void drawMove(Point* p, vector<vector< string > > &board, sf::Font font, sf::RenderWindow &window)
 {
     sf::Vector2f v;
     sf::Text text;
-    string s;
+    string s = player(board);
 
     if (p->x == 0 && p->y == 0) {
         v.x = 60;
         v.y = 30;
     }
-    //TODO
+    if (p->x == 1 && p->y == 0) {
+        v.x = 260;
+        v.y = 30;
+    }
+    if (p->x == 2 && p->y == 0) {
+        v.x = 460;
+        v.y = 30;
+    }
+    if (p->x == 0 && p->y == 1) {
+        v.x = 60;
+        v.y = 230;
+    }
+    if (p->x == 1 && p->y == 1) {
+        v.x = 260;
+        v.y = 230;
+    }
+    if (p->x == 2 && p->y == 1) {
+        v.x = 460;
+        v.y = 230;
+    }
+    if (p->x == 0 && p->y == 2) {
+        v.x = 60;
+        v.y = 430;
+    }
+    if (p->x == 1 && p->y == 2) {
+        v.x = 260;
+        v.y = 430;
+    }
+    if (p->x == 2 && p->y == 2) {
+        v.x = 460;
+        v.y = 430;
+    }
+
+    text.setString(s);
+    text.setFont(font);
+    text.setCharacterSize(120);
+    text.setPosition(v);
+    window.draw(text);
 }
 
 // Display winner and ask user to play again
