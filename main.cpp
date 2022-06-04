@@ -64,6 +64,8 @@ int main()
 
             if (terminal(b) == true) {
                 cout << "END" << endl;
+                freeMemory(p);
+                p.clear();
                 return 0;
             }
         }
