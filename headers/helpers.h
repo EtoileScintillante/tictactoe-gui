@@ -72,7 +72,7 @@ void drawBoard(sf::RenderWindow &window)
 }
 
 // Convert mouse click to move
-// The integer is used in the moveConverter() function in ttt.h
+// The integer is used in the moveConverter function in ttt.h
 int convertClick(sf::Vector2i v)
 {
     int x = v.x;
@@ -110,6 +110,7 @@ int convertClick(sf::Vector2i v)
 }
 
 // Convert move to a position on the board
+// These x and y coordinates are used to draw the X or O
 sf::Vector2f MoveToPos(Point* p)
 {
     sf::Vector2f v;
@@ -161,43 +162,30 @@ void displayEnding(sf::RenderWindow &window, string winner, vector<vector< strin
     rectangle.setFillColor(sf::Color(0,0,0));
     rectangle.setOutlineThickness(10.f);
     rectangle.setPosition(sf::Vector2f(100, 200));
-    sf::Text text, textY, textN;
+    sf::Text text, text1;
     text.setFont(font);
-    textY.setFont(font);
-    textN.setFont(font);
-    text.setString("Player " + winner + " won! Play again?");
-    textY.setString("Yes");
-    textN.setString("No");
+    text1.setFont(font);
+    text.setString(winner + " Play again?");
+    text1.setString("Press [y] for yes or [n] for no");
     text.setCharacterSize(30);
-    textY.setCharacterSize(45);
-    textN.setCharacterSize(45);
-    text.setPosition(sf::Vector2f(200, 220));
-    textY.setPosition(sf::Vector2f(200, 280));
-    textN.setPosition(sf::Vector2f(370, 280));
+    text1.setCharacterSize(30);
+    text.setPosition(sf::Vector2f(180, 220));
+    text1.setPosition(sf::Vector2f(150, 280));
     text.setStyle(sf::Text::Bold);
-    textY.setStyle(sf::Text::Bold);
-    textN.setStyle(sf::Text::Bold);
-    textY.setFillColor(sf::Color::Green);
-    textN.setFillColor(sf::Color::Red);
     window.draw(rectangle);
     window.draw(text);
-    window.draw(textY);
-    window.draw(textN);
-    if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) 
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
     {
-        if (textY.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) 
-        {
-            sf::sleep(sf::Time(sf::seconds(0.3)));
-            window.clear();
-            chosenPlayer = false;
-            v.clear();
-            board = initialState();
-        }
-        if (textN.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) 
-        {
+        v.clear();
+        board = initialState();
+        window.clear();
+        chosenPlayer = false;
+        sf::sleep(sf::Time(sf::seconds(0.5)));
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::N)) 
+    {
             sf::sleep(sf::Time(sf::seconds(0.3)));
             window.close();
-        }
-    }
+    }  
 }
 
