@@ -14,6 +14,7 @@ int main()
 
     // Initialize vector to store users moves
     vector<Point*> p;
+    vector<sf::Text> vt;
 
     // Load font
     sf::Font font;
@@ -39,31 +40,47 @@ int main()
             sf::sleep(sf::Time(sf::seconds(0.3)));
         }
 
-        // Draw board of user has chosen a player
+        // Draw board if user has chosen a player
         else {
             window.clear();
+
+            /// DRAW BOARD ///
             drawBoard(window);
 
             string currPlayer = player(b);
+
+            // Human makes move
             if (currPlayer == playerH) {
                 if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                     int cell = convertClick(sf::Mouse::getPosition(window));
                     Point* move = moveConverter(cell);
+                    sf::Text t;
+                    t.setCharacterSize(120);
+                    t.setString(playerH);
+                    t.setFont(font);
+                    t.setPosition(MoveToPos(move));
+                    vt.push_back(t);
                     b = result(b, move);
-                    p.__emplace_back(move);
-                    printBoard(b);
                     sf::sleep(sf::Time(sf::seconds(0.3)));
                 }
             }
+
+            // AI makes move
             else {
-                Point* move = new Point();
-                Point mm = minimax(b);
-                move->x = mm.x;
-                move->y = mm.y;
-                b = result(b, move);
-                printBoard(b);
-                p.__emplace_back(move);
-                sf::Vector2f pos = MoveToPos(move);
+                Point move = minimax(b);
+                b = result(b, &move);
+                sf::Text t;
+                t.setCharacterSize(120);
+                t.setString(playerAI);
+                t.setFont(font);
+                t.setPosition(MoveToPos(&move));
+                vt.push_back(t);
+                sf::sleep(sf::Time(sf::seconds(0.3)));
+            }
+
+            /// DRAW MOVES ///
+            for (int i = 0; i < vt.size(); i++) {
+                window.draw(vt[i]);
             }
 
             if (terminal(b) == true) {
