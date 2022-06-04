@@ -11,6 +11,7 @@ int main()
     vector<vector< string > > b = initialState();
     string playerH, playerAI;
     bool chosenPlayer = false;
+    bool gameOVER = false;
 
     // Initialize vector to store text drawings
     vector<sf::Text> vt;
@@ -43,46 +44,50 @@ int main()
         else {
             window.clear();
 
-            /// DRAW BOARD ///
-            drawBoard(window);
+            if (gameOVER == false) {
 
-            string currPlayer = player(b);
+                /// DRAW BOARD ///
+                drawBoard(window);
 
-            // Human makes move
-            if (currPlayer == playerH) {
-                if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-                    int cell = convertClick(sf::Mouse::getPosition(window));
-                    Point* move = moveConverter(cell);
+                string currPlayer = player(b);
+
+                // Human makes move
+                if (currPlayer == playerH) {
+                    if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+                        int cell = convertClick(sf::Mouse::getPosition(window));
+                        Point* move = moveConverter(cell);
+                        sf::Text t;
+                        t.setCharacterSize(120);
+                        t.setString(playerH);
+                        t.setFont(font);
+                        t.setPosition(MoveToPos(move));
+                        vt.push_back(t);
+                        b = result(b, move);
+                    }
+                }
+
+                // AI makes move
+                else {
+                    Point move = minimax(b);
+                    b = result(b, &move);
                     sf::Text t;
                     t.setCharacterSize(120);
-                    t.setString(playerH);
+                    t.setString(playerAI);
                     t.setFont(font);
-                    t.setPosition(MoveToPos(move));
+                    t.setPosition(MoveToPos(&move));
                     vt.push_back(t);
-                    b = result(b, move);
                     sf::sleep(sf::Time(sf::seconds(0.3)));
                 }
-            }
 
-            // AI makes move
-            else {
-                Point move = minimax(b);
-                b = result(b, &move);
-                sf::Text t;
-                t.setCharacterSize(120);
-                t.setString(playerAI);
-                t.setFont(font);
-                t.setPosition(MoveToPos(&move));
-                vt.push_back(t);
-                sf::sleep(sf::Time(sf::seconds(0.3)));
+                /// DRAW ALL THE MADE MOVES ///
+                for (int i = 0; i < vt.size(); i++) {
+                    window.draw(vt[i]);
+                }
             }
-
-            /// DRAW ALL THE MADE MOVES ///
-            for (int i = 0; i < vt.size(); i++) {
-                window.draw(vt[i]);
-            }
-
+            
+            // Display message when game is finished
             if (terminal(b) == true) {
+                gameOVER = true;
                 string winningPlayer = winner(b);
                 if (winningPlayer == playerH) {
                     winningPlayer = "Human won!";
@@ -93,7 +98,7 @@ int main()
                 else {
                     winningPlayer = "It's a tie!";
                 }
-                displayEnding(window, winningPlayer, b, chosenPlayer, font, event, vt);
+                displayEnding(window, winningPlayer, b, chosenPlayer, font, event, vt, gameOVER);
             }
         }
 
