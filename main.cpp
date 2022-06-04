@@ -56,10 +56,14 @@ int main()
                 }
             }
             else {
-                Point move = minimax(b);
-                b = result(b, &move);
-                p.__emplace_back(&move);
-                sf::Vector2f pos = MoveToPos(&move);
+                Point* move = new Point();
+                Point mm = minimax(b);
+                move->x = mm.x;
+                move->y = mm.y;
+                b = result(b, move);
+                printBoard(b);
+                p.__emplace_back(move);
+                sf::Vector2f pos = MoveToPos(move);
             }
 
             if (terminal(b) == true) {
