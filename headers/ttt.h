@@ -143,7 +143,7 @@ string winner(vector<vector< string > > board) {
     // Create vector to store all possoible winner options
     vector<vector<string > > winOptions;
 
-    int i;
+    //int i;
     // Add horizontal options
     for (int i = 0; i < board.size(); i++) {
         winOptions.push_back(board[i]);
@@ -232,7 +232,7 @@ Point minimax(vector<vector<string > > board) {
 
     // First check if board is not termninal
     if (terminal(board) == true) {
-        throw runtime_error("teminal board passed to minimax function");
+        throw runtime_error("terminal board passed to minimax function");
     }
 
     // Get the current player
@@ -336,9 +336,6 @@ void printBoard(vector<vector<string> > board) {
                 printf("|");
                 printf("\x1b[32m %s \x1b[0m", (temp[y].c_str()));
             }
-            /*else {
-                cout << "|   ";
-            }*/
             else {
                 cout << "| " << counter << " ";
             }
@@ -351,15 +348,15 @@ void printBoard(vector<vector<string> > board) {
     }
 }
 
-// Convert number (user input) to move
+// Convert cell number (user input) to move
 Point* moveConverter(int i) {
 
     int a, b;
-    switch (i) {
-        case 1:
-            a = 0;
-            b = 0;
-            break;
+    switch (i) {             /////// BOARD //////       ///// CELLS OF BOARD ////
+        case 1:              //  | 1 | 2 | 3 | //       // | 0,0 | 0,1 | 0,2 | //
+            a = 0;           //  | 3 | 5 | 6 | // --->  // | 1,0 | 1,1 | 1,2 | //
+            b = 0;           //  | 7 | 8 | 9 | //       // | 2,0 | 2,1 | 2,2 | //
+            break;           ////////////////////       /////////////////////////
         case 2:
             a = 0;
             b = 1;
@@ -402,6 +399,7 @@ Point* moveConverter(int i) {
 }
 
 // Let user choose move
+// This function is used to play tictactoe from terminal, without a GUI
 int getMove() {
     string s;
     int i;
