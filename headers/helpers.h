@@ -108,12 +108,12 @@ int convertClick(sf::Vector2i v)
     return -1;
 }
 
-// Convert move to drawing on the window
-void drawMove(Point* p, vector<vector< string > > &board, sf::Font font, sf::RenderWindow &window)
+// Convert move to text which can be displayed on the window
+sf::Text MoveToText(Point* p, string player, sf::Font font, sf::RenderWindow &window)
 {
     sf::Vector2f v;
     sf::Text text;
-    string s = player(board);
+    string s = player;
 
     if (p->x == 0 && p->y == 0) {
         v.x = 60;
@@ -156,17 +156,11 @@ void drawMove(Point* p, vector<vector< string > > &board, sf::Font font, sf::Ren
     text.setFont(font);
     text.setCharacterSize(120);
     text.setPosition(v);
-    window.draw(text);
+    return text;
 }
 
 // Display winner and ask user to play again
 void displayEnding(sf::RenderWindow &window, string winner, vector<vector< string > > &board, bool &chosenPlayer, sf::Font font, sf::Event &event)
 {
     //TODO
-}
-
-void freeMemory(vector<Point*> v) {
-    for (int i = 0; i < v.size(); i++) {
-        delete v[i];
-    }
 }
