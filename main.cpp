@@ -12,6 +12,9 @@ int main()
     string playerH, playerAI;
     bool chosenPlayer = false;
 
+    // Initialize vector to store users moves
+    vector<sf::Text> p;
+
     // Load font
     sf::Font font;
     if (!font.loadFromFile("resources/tuffy.ttf"))
@@ -35,35 +38,16 @@ int main()
         // Let user choose player 
         if (chosenPlayer == false) {
             setPlayer(window, font, event, playerH, playerAI, chosenPlayer);
+            sf::sleep(sf::Time(sf::seconds(0.3)));
         }
 
         // Draw board of user has chosen a player
-        else {
+        if (chosenPlayer == true) {
             drawBoard(window);
-
-            // Check whise turn it is
-            if (player(b) == playerH) {
-                if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-                    int cell = convertClick(sf::Mouse::getPosition(window));
-                    Point* playerMove = moveConverter(cell);
-                    drawMove(playerMove, b, font, window);
-                    b = result(b, playerMove);
-                    delete playerMove;
-                }
-            }
-            else {
-                Point AImove = minimax(b);
-                drawMove(&AImove, b, font, window);
-                b = result(b, &AImove);
-            }
-            if (terminal(b) == true) {
-                return 0;
-            }
         }
 
-        window.display();
+       window.display();
     }
-
     return 0;
 }
 
