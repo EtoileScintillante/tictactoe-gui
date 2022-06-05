@@ -37,7 +37,7 @@ void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, string
         {
             playerH = X;
             playerAI = O;
-            sf::sleep(sf::Time(sf::seconds(0.5)));
+            sf::sleep(sf::Time(sf::seconds(0.3)));
             window.clear();
             chosenPlayer = true;
         }
@@ -45,7 +45,7 @@ void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, string
         {
             playerH = O;
             playerAI = X;
-            sf::sleep(sf::Time(sf::seconds(0.5)));
+            sf::sleep(sf::Time(sf::seconds(0.3)));
             window.clear();
             chosenPlayer = true;
         }
@@ -78,31 +78,31 @@ int convertClick(sf::Vector2i v)
     int x = v.x;
     int y = v.y;
 
-    if (x >= 0 && v.x < 200 && y >= 0 && y < 200) {
+    if (x >= 0 && v.x < 200 && y >= 0 && y < 200) { // TOP ROW LEFT CELL
         return 1;
     }
-    if (x >= 200 && x < 400 && y >= 0 && y < 200) {
+    if (x >= 200 && x < 400 && y >= 0 && y < 200) { // TOP ROW MIDDLE CELL
         return 2;
     }
-    if (x >= 400 && x < 600 && y >= 0 && y < 200) {
+    if (x >= 400 && x < 600 && y >= 0 && y < 200) { // TOP ROW RIGHT CELL
         return 3;
     }
-    if (x >= 0 && x < 200 && y >= 200 && y < 400) {
+    if (x >= 0 && x < 200 && y >= 200 && y < 400) { // MIDDLE ROW LEFT CELL
         return 4;
     }
-    if (x >= 200 && x < 400 && y >= 200 && y < 400) {
-        return 5;
+    if (x >= 200 && x < 400 && y >= 200 && y < 400) { // MIDDLE ROW MIDDLE CELL
+        return 5; 
     }
-    if (x >= 400 && x < 600 && y >= 200 && y < 400) {
+    if (x >= 400 && x < 600 && y >= 200 && y < 400) { // MIDDLE ROW RIGHT CELL
         return 6;
     }
-    if (x >= 0 && x < 200 && y >= 400 && y < 600) {
+    if (x >= 0 && x < 200 && y >= 400 && y < 600) { // BOTTOM ROW LEFT CELL
         return 7;
     }
-    if (x >= 200 && x < 400 && y >= 400 && y < 600) {
+    if (x >= 200 && x < 400 && y >= 400 && y < 600) { // BOTTOM ROW MIDDLE CELL
         return 8;
     }
-    if (x >= 400 && x < 600 && y >= 400 && y < 600) {
+    if (x >= 400 && x < 600 && y >= 400 && y < 600) { // BOTTOM ROW RIGHT CELL
         return 9;
     }
 
@@ -110,16 +110,16 @@ int convertClick(sf::Vector2i v)
 }
 
 // Convert move to a position on the board
-// These x and y coordinates are used to draw the X or O
+// These x and y coordinates are used to position the text (X/O) on the window
 sf::Vector2f MoveToPos(Point* p)
 {
     sf::Vector2f v;
 
-    if (p->x == 0 && p->y == 0) {
-        v.x = 60;
-        v.y = 30;
-    }
-    if (p->x == 1 && p->y == 0) {
+    if (p->x == 0 && p->y == 0) {           /////// COORDINATES ON BOARD ////////
+        v.x = 60;                           // | 60,30  | 260,30  | 460, 30  | //
+        v.y = 30;                           // | 60,230 | 260,230 | 460, 230 | //                                           // ------------------------------- //
+    }                                       // | 60,430 | 260,430 | 460, 430 | //
+    if (p->x == 1 && p->y == 0) {           /////////////////////////////////////
         v.x = 60;
         v.y = 230;
     }
@@ -177,15 +177,17 @@ void displayEnding(sf::RenderWindow &window, string winner, vector<vector< strin
     window.draw(text1);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
     {
-        v.clear();
+        // Set everything variables back to initial state if user wants to play again
+        v.clear();  
         window.clear();
         board = initialState();
         chosenPlayer = false;
         gameover = false;
-        sf::sleep(sf::Time(sf::seconds(0.5)));
+        sf::sleep(sf::Time(sf::seconds(0.3)));
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::N)) 
-    {
+    {       
+            // Close the window if user wants to stop playing
             sf::sleep(sf::Time(sf::seconds(0.3)));
             window.close();
     }  
