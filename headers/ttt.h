@@ -7,6 +7,7 @@
 #include <iterator>
 #include <stdexcept>
 #include <limits>
+#include <random>
 #include "point.h"
 using namespace std;
 
@@ -16,8 +17,8 @@ const string O = "O";
 const int ROW = 3;  // 3 x 3 board
 const int COL = 3;
 
-int lowestVal(vector<vector<string > > board);
-int highestVal(vector<vector<string > > board);
+int lowestValue(vector<vector<string > > board);
+int highestValue(vector<vector<string > > board);
 
 // Returns vector with initial state of board (all empty cells)
 vector<vector<string> > initialState() {
@@ -241,13 +242,34 @@ Point minimax(vector<vector<string > > board) {
     Point optimalMove;
     vector<Point*> v;
 
+    // If board is empty, return random move 
+    // Otherwise it takes quite a long time to calculate the first "optimal" move
+    if (emptyCells(board) == 9) {
+
+        // Gets 'entropy' from device that generates random numbers itself
+        // to seed a mersenne twister (pseudo) random generator
+        mt19937 generator(random_device{}());
+
+        v = availableActions(board);
+
+        // Make sure all moves have an equal chance
+        uniform_int_distribution<size_t> distribution(0, v.size() - 1);
+        size_t number = distribution(generator);
+        optimalMove = optimalMove = Point(v[number]->x, v[number]->y);
+
+        // Free memory and return move
+        deleteVect(v); 
+        v.clear();
+        return optimalMove;
+    }
+
     // Maximizing player
     if (currentPlayer == X) {
         int lowest = numeric_limits<int>::min();
         int i;
         v = availableActions(board);
         for (i = 0; i < v.size(); i++) {
-            int value = lowestVal(result(board, v[i]));
+            int value = lowestValue(result(board, v[i]));
             if (value > lowest) {
                 lowest = value;
                 optimalMove = Point(v[i]->x, v[i]->y);
@@ -261,7 +283,7 @@ Point minimax(vector<vector<string > > board) {
         int i;
         v = availableActions(board);
         for (i = 0; i < v.size(); i++) {
-            int value = highestVal(result(board, v[i]));
+            int value = highestValue(result(board, v[i]));
             if (value < highest) {
                 highest = value;
                 optimalMove = Point(v[i]->x, v[i]->y);
@@ -275,7 +297,7 @@ Point minimax(vector<vector<string > > board) {
     return optimalMove;
 }
 
-int lowestVal(vector<vector<string > > board) {
+int lowestValue(vector<vector<string > > board) {
 
     if (terminal(board) == true) {
         return utility(board);
@@ -286,7 +308,7 @@ int lowestVal(vector<vector<string > > board) {
         int value = numeric_limits<int>::max();
         int i;
         for (i = 0; i < v.size(); i++) {
-            value = min(value, highestVal(result(board, v[i])));
+            value = min(value, highestValue(result(board, v[i])));
         }
         deleteVect(v);
         v.clear();
@@ -294,7 +316,7 @@ int lowestVal(vector<vector<string > > board) {
     }
 }
 
-int highestVal(vector<vector<string > > board) {
+int highestValue(vector<vector<string > > board) {
     
     if (terminal(board) == true) {
         return utility(board);
@@ -305,7 +327,7 @@ int highestVal(vector<vector<string > > board) {
         int value = numeric_limits<int>::min();
         int i;
         for (i = 0; i < v.size(); i++) {
-            value = max(value, lowestVal(result(board, v[i])));
+            value = max(value, lowestValue(result(board, v[i])));
         }
         deleteVect(v);
         v.clear();
