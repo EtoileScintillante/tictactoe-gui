@@ -192,7 +192,7 @@ void displayEnding(sf::RenderWindow &window, string winner, vector<vector< strin
     text1.setString("Press [y] or [n]");
     text.setCharacterSize(30);
     text1.setCharacterSize(30);
-    text.setPosition(sf::Vector2f(180, 220));
+    text.setPosition(sf::Vector2f(175, 220));
     text1.setPosition(sf::Vector2f(210, 280));
     text.setStyle(sf::Text::Bold);
     window.draw(rectangle);
@@ -209,8 +209,8 @@ void displayEnding(sf::RenderWindow &window, string winner, vector<vector< strin
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::N)) 
     {       
-            // Close the window if user wants to stop playing
-            window.close();
+        // Close the window if user wants to stop playing
+        window.close();
     }  
 }
 
