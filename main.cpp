@@ -51,8 +51,9 @@ int main()
 
                 string currPlayer = player(b);
 
-                // Human makes move
+                // User makes move
                 if (currPlayer == playerH) {
+
                     if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                         int cell = convertClick(sf::Mouse::getPosition(window));
                         Point* move = moveConverter(cell);
@@ -68,6 +69,8 @@ int main()
 
                 // AI makes move
                 else {
+                    // Add sleep time otherwise it goes too fast
+                    sf::sleep(sf::Time(sf::seconds(0.5)));
                     Point move = minimax(b);
                     b = result(b, &move);
                     sf::Text t;
@@ -76,7 +79,6 @@ int main()
                     t.setFont(font);
                     t.setPosition(MoveToPos(&move));
                     vt.push_back(t);
-                    sf::sleep(sf::Time(sf::seconds(0.3)));
                 }
 
                 /// DRAW ALL THE MADE MOVES ///
@@ -87,18 +89,33 @@ int main()
             
             // Display message when game is finished
             if (terminal(b) == true) {
-                gameOVER = true;
-                string winningPlayer = winner(b);
-                if (winningPlayer == playerH) {
-                    winningPlayer = "Human won!";
+
+                if (gameOVER == false) {
+                    // Draw everything again to let user see end result of board
+                    // before clearing everything
+                    drawBoard(window);
+                    for (int i = 0; i < vt.size(); i++) {
+                    window.draw(vt[i]);
+                    }
+                    window.display();
+                    sf::sleep(sf::Time(sf::seconds(1.3)));
+                    gameOVER = true;
                 }
-                else if (winningPlayer == playerAI) {
-                    winningPlayer = "AI won!";
-                }
+
                 else {
-                    winningPlayer = "It's a tie!";
+                    string winningPlayer = winner(b);
+                    if (winningPlayer == playerH) {
+                        winningPlayer = "Human won!";
+                    }
+                    if (winningPlayer == playerAI) {
+                        winningPlayer = "AI won!";
+                    }
+                    if (winningPlayer == "no winner") {
+                        winningPlayer = "It's a tie!";
+                    }
+                    displayEnding(window, winningPlayer, b, chosenPlayer, font, event, vt, gameOVER);
                 }
-                displayEnding(window, winningPlayer, b, chosenPlayer, font, event, vt, gameOVER);
+                
             }
         }
 
