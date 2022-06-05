@@ -106,7 +106,7 @@ int convertClick(sf::Vector2i v)
         return 9;
     }
 
-    return -1;
+    throw invalid_argument("Invalid mouse coordinates");
 }
 
 // Convert move to a position on the board
