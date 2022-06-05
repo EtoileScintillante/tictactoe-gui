@@ -59,9 +59,10 @@ int main()
                     sf::Text text;
                     text.setFillColor(sf::Color::Yellow);
                     text.setFont(font);
+                    text.setStyle(sf::Text::Bold);
                     text.setString("X always begins!");
-                    text.setCharacterSize(20);
-                    text.setPosition(sf::Vector2f(235, 30));
+                    text.setCharacterSize(18);
+                    text.setPosition(sf::Vector2f(230, 30));
                     window.draw(text);
                 }
                 
