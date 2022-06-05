@@ -12,6 +12,7 @@ int main()
     string playerH, playerAI;
     bool chosenPlayer = false;
     bool gameOVER = false;
+    int moveCount = 0;
 
     // Initialize vector to store text drawings
     vector<sf::Text> vt;
@@ -49,14 +50,28 @@ int main()
                 /// DRAW BOARD ///
                 drawBoard(window);
 
+                // Get the current player
                 string currPlayer = player(b);
 
+                // Display message saying X always begins hen users chooses X
+                // so that the user knows that they can make the first move
+                if (moveCount < 1 && currPlayer == playerH) {
+                    sf::Text text;
+                    text.setFillColor(sf::Color::Yellow);
+                    text.setFont(font);
+                    text.setString("X always begins!");
+                    text.setCharacterSize(20);
+                    text.setPosition(sf::Vector2f(235, 30));
+                    window.draw(text);
+                }
+                
                 // User makes move
                 if (currPlayer == playerH) {
 
                     if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                         int cell = convertClick(sf::Mouse::getPosition(window));
                         Point* move = moveConverter(cell);
+                        moveCount++;
                         sf::Text t;
                         t.setCharacterSize(120);
                         t.setString(playerH);
@@ -73,6 +88,7 @@ int main()
                     sf::sleep(sf::Time(sf::seconds(0.5)));
                     Point move = minimax(b);
                     b = result(b, &move);
+                    moveCount++;
                     sf::Text t;
                     t.setCharacterSize(120);
                     t.setString(playerAI);
@@ -94,7 +110,8 @@ int main()
                     // Show end result to user for a split second
                     // before clearing everything
                     window.display();
-                    sf::sleep(sf::Time(sf::seconds(0.8)));
+                    sf::sleep(sf::Time(sf::seconds(0.5)));
+                    moveCount = 0; // Count back to zero
                     gameOVER = true;
                 }
 
