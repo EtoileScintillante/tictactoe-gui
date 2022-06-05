@@ -91,12 +91,8 @@ int main()
             if (terminal(b) == true) {
 
                 if (gameOVER == false) {
-                    // Draw everything again to let user see end result of board
+                    // Show end result to user for a split second
                     // before clearing everything
-                    drawBoard(window);
-                    for (int i = 0; i < vt.size(); i++) {
-                    window.draw(vt[i]);
-                    }
                     window.display();
                     sf::sleep(sf::Time(sf::seconds(1.3)));
                     gameOVER = true;
