@@ -36,7 +36,8 @@ void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, string
     if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) 
     {
         if (textX.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) 
-        {
+        {   
+            // User clicked on X
             playerH = X;
             playerAI = O;
             sf::sleep(sf::Time(sf::seconds(0.3)));
@@ -45,6 +46,7 @@ void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, string
         }
         if (textO.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) 
         {
+            // User clicked on O
             playerH = O;
             playerAI = X;
             sf::sleep(sf::Time(sf::seconds(0.3)));
@@ -52,6 +54,25 @@ void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, string
             chosenPlayer = true;
         }
     }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
+    {
+        // User pressed X
+        playerH = X;
+        playerAI = O;
+        sf::sleep(sf::Time(sf::seconds(0.3)));
+        window.clear();
+        chosenPlayer = true;
+    }
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
+    {
+        // User pressed O
+        playerH = O;
+        playerAI = X;
+        sf::sleep(sf::Time(sf::seconds(0.3)));
+        window.clear();
+        chosenPlayer = true;
+    }
+
 }
 
 // Draw the board (the lines)
