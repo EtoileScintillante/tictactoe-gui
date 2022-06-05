@@ -94,7 +94,7 @@ int main()
                     // Show end result to user for a split second
                     // before clearing everything
                     window.display();
-                    sf::sleep(sf::Time(sf::seconds(1.3)));
+                    sf::sleep(sf::Time(sf::seconds(0.8)));
                     gameOVER = true;
                 }
 
