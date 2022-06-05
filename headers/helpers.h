@@ -1,3 +1,5 @@
+//// THIS FILE CONTAINS FUNCTIONS WHICH ARE USED TO SETUP AND RUN THE GUI APPLICATION ////
+
 #include <SFML/Graphics.hpp>
 #include <stdexcept>
 #include <SFML/System.hpp>
