@@ -60,7 +60,7 @@ int main()
                     text.setFillColor(sf::Color::Yellow);
                     text.setFont(font);
                     text.setStyle(sf::Text::Bold);
-                    text.setString("X always begins!");
+                    text.setString("Player X starts!");
                     text.setCharacterSize(18);
                     text.setPosition(sf::Vector2f(230, 30));
                     window.draw(text);
