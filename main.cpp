@@ -56,12 +56,9 @@ int main()
                 // Display message saying X always begins hen users chooses X
                 // so that the user knows that they can make the first move
                 if (moveCount < 1 && currPlayer == playerH) {
-                    sf::Text text;
+                    sf::Text text("Player X starts!", font, 18);
                     text.setFillColor(sf::Color::Yellow);
-                    text.setFont(font);
                     text.setStyle(sf::Text::Bold);
-                    text.setString("Player X starts!");
-                    text.setCharacterSize(18);
                     text.setPosition(sf::Vector2f(230, 30));
                     window.draw(text);
                 }
@@ -73,10 +70,7 @@ int main()
                         int cell = convertClick(sf::Mouse::getPosition(window));
                         Point* move = moveConverter(cell);
                         moveCount++;
-                        sf::Text t;
-                        t.setCharacterSize(120);
-                        t.setString(playerH);
-                        t.setFont(font);
+                        sf::Text t(playerH, font, 120);
                         t.setPosition(MoveToPos(move));
                         vt.push_back(t);
                         b = result(b, move);
@@ -90,10 +84,7 @@ int main()
                     Point move = minimax(b);
                     b = result(b, &move);
                     moveCount++;
-                    sf::Text t;
-                    t.setCharacterSize(120);
-                    t.setString(playerAI);
-                    t.setFont(font);
+                    sf::Text t(playerAI, font, 120);
                     t.setPosition(MoveToPos(&move));
                     vt.push_back(t);
                 }
@@ -117,17 +108,17 @@ int main()
                 }
 
                 else {
-                    string winningPlayer = winner(b);
-                    if (winningPlayer == playerH) {
-                        winningPlayer = "Human won!";
+                    string winningMsg;
+                    if (player(b) == playerH) {
+                        winningMsg = "Human won!";
                     }
-                    if (winningPlayer == playerAI) {
-                        winningPlayer = "AI won!";
+                    if (player(b) == playerAI) {
+                        winningMsg = "AI won!";
                     }
-                    if (winningPlayer == "no winner") {
-                        winningPlayer = "It's a tie!";
+                    if (player(b) == "no winner") {
+                        winningMsg = "It's a tie!";
                     }
-                    displayEnding(window, winningPlayer, b, chosenPlayer, font, event, vt, gameOVER);
+                    displayEnding(window, winningMsg, b, chosenPlayer, font, event, vt, gameOVER);
                 }
                 
             }
