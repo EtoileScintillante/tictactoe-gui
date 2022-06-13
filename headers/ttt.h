@@ -1,4 +1,4 @@
-/// THIS FILE CONTAINS FUNCTIONS TO PLAY A GAME OF TIC TAC TOE AGAINS AN AI ///
+/// THIS FILE CONTAINS FUNCTIONS TO PLAY A GAME OF TIC TAC TOE AGAINST AN AI ///
 
 #include <iostream>
 #include <string>
@@ -375,10 +375,11 @@ void printBoard(vector<vector<string> > board) {
 
 // Convert cell number to coordinates on board
 // These coordinates are used to update the board (which is a 2d vector)
+// To actually draw a move on the window, different coordinates are used (see MoveToPos in helpers.h)
 Point* moveConverter(int i) {
 
     int a, b;
-    switch (i) {             /////// BOARD //////       ///// CELLS OF BOARD ////
+    switch (i) {             /////// CELLS //////       ////// COORDINATES //////
         case 1:              //  | 1 | 2 | 3 | //       // | 0,0 | 0,1 | 0,2 | //
             a = 0;           //  | 3 | 5 | 6 | // --->  // | 1,0 | 1,1 | 1,2 | //
             b = 0;           //  | 7 | 8 | 9 | //       // | 2,0 | 2,1 | 2,2 | //
