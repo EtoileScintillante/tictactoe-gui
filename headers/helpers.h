@@ -13,26 +13,22 @@ void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, string
     rectangle.setFillColor(sf::Color(0,0,0));
     rectangle.setOutlineThickness(10.f);
     rectangle.setPosition(sf::Vector2f(100, 200));
-    sf::Text text, textX, textO;
-    text.setFont(font);
-    textX.setFont(font);
-    textO.setFont(font);
-    text.setString("Choose player:");
-    textX.setString("X");
-    textO.setString("O");
-    text.setCharacterSize(30);
-    textX.setCharacterSize(45);
-    textO.setCharacterSize(45);
+
+    sf::Text text("Choose player:", font, 30);
+    sf::Text textX("X", font, 45);
+    sf::Text textO("O", font, 45);
     text.setPosition(sf::Vector2f(200, 220));
     textX.setPosition(sf::Vector2f(200, 280));
     textO.setPosition(sf::Vector2f(370, 280));
     text.setStyle(sf::Text::Bold);
     textX.setStyle(sf::Text::Bold);
     textO.setStyle(sf::Text::Bold);
+
     window.draw(rectangle);
     window.draw(text);
     window.draw(textX);
     window.draw(textO);
+    
     if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) 
     {
         if (textX.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) 
@@ -82,12 +78,14 @@ void drawBoard(sf::RenderWindow &window)
     hline1.move(sf::Vector2f(0, 200));
     sf::RectangleShape hline2(sf::Vector2f(600, 5)); // Horizontal
     hline2.move(sf::Vector2f(0, 400));
+
     sf::RectangleShape vline1(sf::Vector2f(600, 5)); // Vertical
     vline1.move(sf::Vector2f(200, 0));
     vline1.rotate(sf::degrees(90));
     sf::RectangleShape vline2(sf::Vector2f(600, 5)); // Vertical
     vline2.move(sf::Vector2f(400, 0));
     vline2.rotate(sf::degrees(90));
+
     window.draw(hline1);
     window.draw(hline2);
     window.draw(vline1);
@@ -96,6 +94,7 @@ void drawBoard(sf::RenderWindow &window)
 
 // Convert mouse click to move
 // The integer is used in the moveConverter function in ttt.h
+// moveConvert converts the integer to coordinates on the board
 int convertClick(sf::Vector2i v)
 {
     int x = v.x;
@@ -140,7 +139,7 @@ sf::Vector2f MoveToPos(Point* p)
 
     if (p->x == 0 && p->y == 0) {           /////// COORDINATES ON BOARD ////////
         v.x = 60;                           // | 60,30  | 260,30  | 460, 30  | //
-        v.y = 30;                           // | 60,230 | 260,230 | 460, 230 | //                                           // ------------------------------- //
+        v.y = 30;                           // | 60,230 | 260,230 | 460, 230 | //                                       
     }                                       // | 60,430 | 260,430 | 460, 430 | //
     if (p->x == 1 && p->y == 0) {           /////////////////////////////////////
         v.x = 60;
@@ -179,25 +178,23 @@ sf::Vector2f MoveToPos(Point* p)
 }
 
 // Display winner and ask user to play again
-void displayEnding(sf::RenderWindow &window, string winner, vector<vector< string > > &board, bool &chosenplayer, sf::Font font, sf::Event &event, vector<sf::Text> &v, bool &gameover)
+void displayEnding(sf::RenderWindow &window, string winMsg, vector<vector< string > > &board, bool &chosenplayer, sf::Font font, sf::Event &event, vector<sf::Text> &v, bool &gameover)
 {
     sf::RectangleShape rectangle(sf::Vector2f(400.f, 150.f));
     rectangle.setFillColor(sf::Color(0,0,0));
     rectangle.setOutlineThickness(10.f);
+
     rectangle.setPosition(sf::Vector2f(100, 200));
-    sf::Text text, text1;
-    text.setFont(font);
-    text1.setFont(font);
-    text.setString(winner + " Play again?");
-    text1.setString("Press [y] or [n]");
-    text.setCharacterSize(30);
-    text1.setCharacterSize(30);
+    sf::Text text(winMsg + " Play again?", font, 30);
+    sf::Text text1("Press [y] or [n]", font, 30);
     text.setPosition(sf::Vector2f(175, 220));
     text1.setPosition(sf::Vector2f(210, 280));
     text.setStyle(sf::Text::Bold);
+
     window.draw(rectangle);
     window.draw(text);
     window.draw(text1);
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
     {
         // Set everything variables back to initial state if user wants to play again
