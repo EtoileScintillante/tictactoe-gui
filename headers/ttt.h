@@ -374,6 +374,7 @@ void printBoard(vector<vector<string> > board) {
 }
 
 // Convert cell number to coordinates on board
+// These coordinates are used to update the board (which is a 2d vector)
 Point* moveConverter(int i) {
 
     int a, b;
