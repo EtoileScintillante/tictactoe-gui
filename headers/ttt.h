@@ -210,6 +210,7 @@ bool terminal(vector<vector<string > > board) {
 }
 
 // Return 1 if X has won, -1 if O has won, 0 otherwhise
+// X is maximizing player, O is minimizing player
 int utility(vector<vector<string > > board) {
 
     if (winner(board) == X) {
@@ -297,6 +298,7 @@ Point minimax(vector<vector<string > > board) {
     return optimalMove;
 }
 
+// Function called by minimax() to determine optimal move
 int lowestValue(vector<vector<string > > board) {
 
     if (terminal(board) == true) {
@@ -316,6 +318,7 @@ int lowestValue(vector<vector<string > > board) {
     }
 }
 
+// Function called by minimax() to determine optimal move
 int highestValue(vector<vector<string > > board) {
     
     if (terminal(board) == true) {
@@ -370,7 +373,7 @@ void printBoard(vector<vector<string> > board) {
     }
 }
 
-// Convert cell number (user input) to move
+// Convert cell number to coordinates on board
 Point* moveConverter(int i) {
 
     int a, b;
@@ -418,29 +421,4 @@ Point* moveConverter(int i) {
     p->y = b;
 
     return p;
-}
-
-// Let user choose move
-// This function is used to play tictactoe from terminal, without a GUI
-int getMove() {
-    string s;
-    int i;
-
-    cout << "Which cell: ";
-    cin>>s;
-    cout << endl;
-
-    try {
-        i = stoi(s);
-    } 
-    catch(...) {
-        throw invalid_argument("input must be numerical");
-    }
-    
-    if (i >= 1 && i <= 9) {
-        return i;
-    }
-    else {
-        throw invalid_argument("number must be between 1 and 9");
-    }
 }
