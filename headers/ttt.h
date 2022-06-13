@@ -1,4 +1,4 @@
-/* Tic Tac Toe */
+/// THIS FILE CONTAINS FUNCTIONS TO PLAY A GAME OF TIC TAC TOE AGAINS AN AI ///
 
 #include <iostream>
 #include <string>
