@@ -108,17 +108,15 @@ int main()
                 }
 
                 else {
-                    string winningMsg;
-                    if (player(b) == playerH) {
-                        winningMsg = "Human won!";
+                    if (winner(b) == playerH) {
+                        displayEnding(window, "Human won!", b, chosenPlayer, font, event, vt, gameOVER);
                     }
-                    if (player(b) == playerAI) {
-                        winningMsg = "AI won!";
+                    if (winner(b) == playerAI) {
+                        displayEnding(window, "AI won!", b, chosenPlayer, font, event, vt, gameOVER);
                     }
-                    if (player(b) == "no winner") {
-                        winningMsg = "It's a tie!";
+                    if (winner(b) == "no winner") {
+                        displayEnding(window, "It's a tie!", b, chosenPlayer, font, event, vt, gameOVER);
                     }
-                    displayEnding(window, winningMsg, b, chosenPlayer, font, event, vt, gameOVER);
                 }
                 
             }

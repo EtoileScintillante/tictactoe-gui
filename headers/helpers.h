@@ -187,7 +187,7 @@ void displayEnding(sf::RenderWindow &window, string winMsg, vector<vector< strin
     rectangle.setPosition(sf::Vector2f(100, 200));
     sf::Text text(winMsg + " Play again?", font, 30);
     sf::Text text1("Press [y] or [n]", font, 30);
-    text.setPosition(sf::Vector2f(175, 220));
+    text.setPosition(sf::Vector2f(160, 220));
     text1.setPosition(sf::Vector2f(210, 280));
     text.setStyle(sf::Text::Bold);
 
