@@ -131,13 +131,13 @@ int convertClick(sf::Vector2i v)
     throw invalid_argument("Invalid mouse coordinates");
 }
 
-// Convert move to a position on the board
-// These x and y coordinates are used to position the text (X/O) on the window
+// Convert move to a position on the window
+// These x and y coordinates are used to draw the text (X/O) on the window at the right place
 sf::Vector2f MoveToPos(Point* p)
 {
     sf::Vector2f v;
 
-    if (p->x == 0 && p->y == 0) {           /////// COORDINATES ON BOARD ////////
+    if (p->x == 0 && p->y == 0) {           ///////// COORDINATES WINDOW ////////
         v.x = 60;                           // | 60,30  | 260,30  | 460, 30  | //
         v.y = 30;                           // | 60,230 | 260,230 | 460, 230 | //                                       
     }                                       // | 60,430 | 260,430 | 460, 430 | //
