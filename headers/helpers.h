@@ -92,9 +92,9 @@ void drawBoard(sf::RenderWindow &window)
     window.draw(vline2);
 }
 
-// Convert mouse click to move
+// Convert mouse click to integer
 // The integer is used in the moveConverter function in ttt.h
-// moveConvert converts the integer to coordinates on the board (the 2d vector)
+// That function converts the integer to coordinates on the board (the 2d vector)
 int convertClick(sf::Vector2i v)
 {
     int x = v.x;
