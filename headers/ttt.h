@@ -376,7 +376,7 @@ void printBoard(vector<vector<string> > board) {
 // Convert cell number to coordinates on board
 // These coordinates are used to update the board (which is a 2d vector)
 // To actually draw a move on the window, different coordinates are used (see MoveToPos in helpers.h)
-Point* moveConverter(int i) {
+Point moveConverter(int i) {
 
     int a, b;
     switch (i) {             /////// CELLS //////       ////// COORDINATES //////
@@ -418,9 +418,9 @@ Point* moveConverter(int i) {
             break;
     }
 
-    Point* p = new Point();
-    p->x = a;
-    p->y = b;
-
+    Point p;
+    p.x = a;
+    p.y = b;
+    
     return p;
 }
