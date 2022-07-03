@@ -8,20 +8,20 @@ int main()
     sf::RenderWindow window(sf::VideoMode(sf::Vector2u(600, 600)), "Tic Tac Toe");
 
     // Initialize empty board and players
-    vector<vector< string > > b = initialState();
-    string playerH, playerAI;
+    std::vector<std::vector< std::string > > b = initialState();
+    std::string playerH, playerAI;
     bool chosenPlayer = false;
     bool gameOVER = false;
     int moveCount = 0;
 
     // Initialize vector to store text drawings
-    vector<sf::Text> vt;
+    std::vector<sf::Text> vt;
 
     // Load font
     sf::Font font;
     if (!font.loadFromFile("resources/tuffy.ttf"))
     {
-        cout << "Font could not be loaded from file" << endl;
+        std::cout << "Font could not be loaded from file" << std::endl;
         return 1;
     }
     
@@ -51,7 +51,7 @@ int main()
                 drawBoard(window);
 
                 // Get the current player
-                string currPlayer = player(b);
+                std::string currPlayer = player(b);
 
                 // Display message saying X always begins hen users chooses X
                 // so that the user knows that they can make the first move
