@@ -1,4 +1,12 @@
-//// THIS FILE CONTAINS FUNCTIONS WHICH ARE USED TO SETUP AND RUN THE GUI APPLICATION ////
+/*                                  
+ * helpers.h
+ *
+ * Created on: 3 July 2022
+ * Author: EtoileScintillante
+ */
+
+#ifndef __HELPERS__
+#define __HELPERS__
 
 #include <SFML/Graphics.hpp>
 #include <stdexcept>
@@ -6,210 +14,67 @@
 #include "ttt.h"
 #include <string>
 
-// Let the user pick a side, X or O
-void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, string &playerH, string &playerAI, bool &chosenPlayer)
-{
-    sf::RectangleShape rectangle(sf::Vector2f(400.f, 150.f));
-    rectangle.setFillColor(sf::Color(0,0,0));
-    rectangle.setOutlineThickness(10.f);
-    rectangle.setPosition(sf::Vector2f(100, 200));
+/**
+ * Let the user pick a side, X or O.
+ * 
+ * @param[out] window window that will be rendered
+ * @param font font which will be used to style the text
+ * @param[out] event event to which the computer listens (in this case mouse and keyboard)
+ * @param[out] playerh human player
+ * @param[out] playerAI AI player
+ * @param[out] chosenPlayer true if human has picked a side, false otherwise
+ */
+void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, string &playerH, string &playerAI, bool &chosenPlayer);
 
-    sf::Text text("Choose player:", font, 30);
-    sf::Text textX("X", font, 45);
-    sf::Text textO("O", font, 45);
-    text.setPosition(sf::Vector2f(200, 220));
-    textX.setPosition(sf::Vector2f(200, 280));
-    textO.setPosition(sf::Vector2f(370, 280));
-    text.setStyle(sf::Text::Bold);
-    textX.setStyle(sf::Text::Bold);
-    textO.setStyle(sf::Text::Bold);
+/**
+ * Draw the vertical and horizontal lines of the of the Tic Tac Toe board.
+ * The lines will be drawn in white.
+ * Assumption: window size is 600 x 600
+ * 
+ * @param[out] window window on which the lines will be drawn
+ */
+void drawBoard(sf::RenderWindow &window);
 
-    window.draw(rectangle);
-    window.draw(text);
-    window.draw(textX);
-    window.draw(textO);
-    
-    if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) 
-    {
-        if (textX.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) 
-        {   
-            // User clicked on X
-            playerH = X;
-            playerAI = O;
-            sf::sleep(sf::Time(sf::seconds(0.3)));
-            window.clear();
-            chosenPlayer = true;
-        }
-        if (textO.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) 
-        {
-            // User clicked on O
-            playerH = O;
-            playerAI = X;
-            sf::sleep(sf::Time(sf::seconds(0.3)));
-            window.clear();
-            chosenPlayer = true;
-        }
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::X))
-    {
-        // User pressed X
-        playerH = X;
-        playerAI = O;
-        sf::sleep(sf::Time(sf::seconds(0.3)));
-        window.clear();
-        chosenPlayer = true;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::O))
-    {
-        // User pressed O
-        playerH = O;
-        playerAI = X;
-        sf::sleep(sf::Time(sf::seconds(0.3)));
-        window.clear();
-        chosenPlayer = true;
-    }
+/**
+ * Convert mouseclick to the corresponding number,
+ * depending on which cell the user clicked.
+ * Tic Tac Toe (TTT) has 9 cells and therefore the number can be anywhere between 1 and 9.
+ * To keep track of the score, the program represents the TTT board as a 2d vector.
+ * The number obtained by this function will be used to determine in which row and column the X (or O)
+ * needs to be inserted (see moveConvert in ttt.h).
+ * 
+ * @param v Vector2i which holds the coordinates of the mouseclick
+ * @return integer representing the cell on which the user clicked 
+ */
+int convertClick(sf::Vector2i v);
+  
+/**
+ * Convert row and column to the corresponding coordinates on the window.
+ * This function is used to determine where to draw the Xs and Os. 
+ * 
+ * @param p Pointer to Point which holds the row and column number of the player's move in the 2d vector of the board.
+ * @return Vector2f holding the x and y coordinates of where the X (or O) should be drawn.
+ */
+sf::Vector2f MoveToPos(Point* p);
 
-}
+/**
+ * Display the winner and ask user to play again or not.
+ * In case the user wants to play again, some boolean variables will be reset.
+ * In addition, the 2d vector representing the TTT baord and the vector holding 
+ * the drawings of the Xs and Os board will both be cleared.
+ * 
+ * @param[out] window window that will be rendered.
+ * @param winMsg message telling who won.
+ * @param[out] board 2d vector representing the TTT board.
+ * @param[out] chosenPlayer boolean value (true if user has picked a side, false otherwise).
+ * @param font font in which the text will be styled.
+ * @param[out] event event to which the computer listens (in this case keyboard).
+ * @param[out] v vector which holds the drawings of the Xs and Os.
+ * @param[out] gameover boolean value (true if game is over, false otherwhise).
+ */
+void displayEnding(sf::RenderWindow &window, string winMsg, vector<vector< string > > &board, bool &chosenplayer, sf::Font font, sf::Event &event, vector<sf::Text> &v, bool &gameover);
 
-// Draw the board (the lines)
-void drawBoard(sf::RenderWindow &window) 
-{
-    sf::RectangleShape hline1(sf::Vector2f(600, 5)); // Horizontal
-    hline1.move(sf::Vector2f(0, 200));
-    sf::RectangleShape hline2(sf::Vector2f(600, 5)); // Horizontal
-    hline2.move(sf::Vector2f(0, 400));
-
-    sf::RectangleShape vline1(sf::Vector2f(600, 5)); // Vertical
-    vline1.move(sf::Vector2f(200, 0));
-    vline1.rotate(sf::degrees(90));
-    sf::RectangleShape vline2(sf::Vector2f(600, 5)); // Vertical
-    vline2.move(sf::Vector2f(400, 0));
-    vline2.rotate(sf::degrees(90));
-
-    window.draw(hline1);
-    window.draw(hline2);
-    window.draw(vline1);
-    window.draw(vline2);
-}
-
-// Convert mouse click to integer
-// The integer is used in the moveConverter function in ttt.h
-// That function converts the integer to coordinates on the board (the 2d vector)
-int convertClick(sf::Vector2i v)
-{
-    int x = v.x;
-    int y = v.y;
-
-    if (x >= 0 && v.x < 200 && y >= 0 && y < 200) { // TOP ROW LEFT CELL
-        return 1;
-    }
-    if (x >= 200 && x < 400 && y >= 0 && y < 200) { // TOP ROW MIDDLE CELL
-        return 2;
-    }
-    if (x >= 400 && x < 600 && y >= 0 && y < 200) { // TOP ROW RIGHT CELL
-        return 3;
-    }
-    if (x >= 0 && x < 200 && y >= 200 && y < 400) { // MIDDLE ROW LEFT CELL
-        return 4;
-    }
-    if (x >= 200 && x < 400 && y >= 200 && y < 400) { // MIDDLE ROW MIDDLE CELL
-        return 5; 
-    }
-    if (x >= 400 && x < 600 && y >= 200 && y < 400) { // MIDDLE ROW RIGHT CELL
-        return 6;
-    }
-    if (x >= 0 && x < 200 && y >= 400 && y < 600) { // BOTTOM ROW LEFT CELL
-        return 7;
-    }
-    if (x >= 200 && x < 400 && y >= 400 && y < 600) { // BOTTOM ROW MIDDLE CELL
-        return 8;
-    }
-    if (x >= 400 && x < 600 && y >= 400 && y < 600) { // BOTTOM ROW RIGHT CELL
-        return 9;
-    }
-
-    throw invalid_argument("Invalid mouse coordinates");
-}
-
-// Convert move to a position on the window
-// These x and y coordinates are used to draw the text (X/O) on the window at the right place
-sf::Vector2f MoveToPos(Point* p)
-{
-    sf::Vector2f v;
-
-    if (p->x == 0 && p->y == 0) {           ///////// COORDINATES WINDOW ////////
-        v.x = 60;                           // | 60,30  | 260,30  | 460, 30  | //
-        v.y = 30;                           // | 60,230 | 260,230 | 460, 230 | //                                       
-    }                                       // | 60,430 | 260,430 | 460, 430 | //
-    if (p->x == 1 && p->y == 0) {           /////////////////////////////////////
-        v.x = 60;
-        v.y = 230;
-    }
-    if (p->x == 2 && p->y == 0) {
-        v.x = 60;
-        v.y = 430;
-    }
-    if (p->x == 0 && p->y == 1) {
-        v.x = 260;
-        v.y = 30;
-    }
-    if (p->x == 1 && p->y == 1) {
-        v.x = 260;
-        v.y = 230;
-    }
-    if (p->x == 2 && p->y == 1) {
-        v.x = 260;
-        v.y = 430;
-    }
-    if (p->x == 0 && p->y == 2) {
-        v.x = 460;
-        v.y = 30;
-    }
-    if (p->x == 1 && p->y == 2) {
-        v.x = 460;
-        v.y = 230;
-    }
-    if (p->x == 2 && p->y == 2) {
-        v.x = 460;
-        v.y = 430;
-    }
-
-    return v;
-}
-
-// Display winner and ask user to play again
-void displayEnding(sf::RenderWindow &window, string winMsg, vector<vector< string > > &board, bool &chosenplayer, sf::Font font, sf::Event &event, vector<sf::Text> &v, bool &gameover)
-{
-    sf::RectangleShape rectangle(sf::Vector2f(400.f, 150.f));
-    rectangle.setFillColor(sf::Color(0,0,0));
-    rectangle.setOutlineThickness(10.f);
-
-    rectangle.setPosition(sf::Vector2f(100, 200));
-    sf::Text text(winMsg + " Play again?", font, 30);
-    sf::Text text1("Press [y] or [n]", font, 30);
-    text.setPosition(sf::Vector2f(160, 220));
-    text1.setPosition(sf::Vector2f(210, 280));
-    text.setStyle(sf::Text::Bold);
-
-    window.draw(rectangle);
-    window.draw(text);
-    window.draw(text1);
-
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
-    {
-        // Set everything variables back to initial state if user wants to play again
-        v.clear();  
-        window.clear();
-        board = initialState();
-        chosenplayer = false;
-        gameover = false;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::N)) 
-    {       
-        // Close the window if user wants to stop playing
-        window.close();
-    }  
-}
+#endif /*__HELPERS__*/
 
 
 
