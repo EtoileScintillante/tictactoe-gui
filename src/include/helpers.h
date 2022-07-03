@@ -24,7 +24,7 @@
  * @param[out] playerAI AI player
  * @param[out] chosenPlayer true if human has picked a side, false otherwise
  */
-void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, string &playerH, string &playerAI, bool &chosenPlayer);
+void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, std::string &playerH, std::string &playerAI, bool &chosenPlayer);
 
 /**
  * Draw the vertical and horizontal lines of the of the Tic Tac Toe board.
@@ -72,7 +72,7 @@ sf::Vector2f MoveToPos(Point* p);
  * @param[out] v vector which holds the drawings of the Xs and Os.
  * @param[out] gameover boolean value (true if game is over, false otherwhise).
  */
-void displayEnding(sf::RenderWindow &window, string winMsg, vector<vector< string > > &board, bool &chosenplayer, sf::Font font, sf::Event &event, vector<sf::Text> &v, bool &gameover);
+void displayEnding(sf::RenderWindow &window, std::string winMsg, std::vector<std::vector< std::string > > &board, bool &chosenplayer, sf::Font font, sf::Event &event, std::vector<sf::Text> &v, bool &gameover);
 
 #endif /*__HELPERS__*/
 
