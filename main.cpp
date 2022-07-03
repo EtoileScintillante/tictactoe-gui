@@ -68,11 +68,11 @@ int main()
 
                     if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
                         int cell = convertClick(sf::Mouse::getPosition(window)); // Convert click to cell number (the ttt board has 9 cells)
-                        Point move = moveConverter(cell); // Convert cell number to coordinates on the board (the 2d vector)
+                        Point move = moveConverter(cell); // Convert cell number to row and column on the board (the 2d vector)
                         moveCount++;
                         sf::Text t(playerH, font, 120);
-                        t.setPosition(MoveToPos(&move)); // Convert coordinates of move to coordinates of drawing on the window
-                        vt.push_back(t); // Store move in vector
+                        t.setPosition(MoveToPos(&move)); // Convert row and column to coordinates of drawing on the window
+                        vt.push_back(t); // Store drawing of move in vector
                         b = result(b, &move); // Update board
                     }
                 }
