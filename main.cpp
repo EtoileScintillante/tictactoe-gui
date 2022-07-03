@@ -1,6 +1,6 @@
 /* Play Tic Tac Toe against an AI */
 
-#include "headers/helpers.h"
+#include "helpers.h"
 
 int main()
 {   
