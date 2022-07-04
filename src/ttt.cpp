@@ -1,6 +1,6 @@
 #include "ttt.h"
 
-// Returns vector with initial state of board (all empty cells)
+// Return vector with initial state of TTT board (all empty cells)
 std::vector<std::vector<std::string> > initialState() {
     
     std::vector<std::string> temp;
@@ -92,7 +92,7 @@ std::vector<Point*> availableActions(std::vector<std::vector<std::string> > boar
     return vect;
 }
 
-// Returns the board that results from making move (i, j)
+// Returns the TTT board that results from making move (i, j)
 std::vector<std::vector<std::string> > result(std::vector<std::vector<std::string> > board, Point* action) {
     
     std::vector<std::vector<std::string> > copyBoard;
@@ -110,7 +110,7 @@ std::vector<std::vector<std::string> > result(std::vector<std::vector<std::strin
     }
 }
 
-// Deallocate memory 
+// Free memory 
 void deleteVect(std::vector<Point*> v) {
 
     for (int i = 0; i< v.size();i++) {
@@ -209,10 +209,10 @@ int utility(std::vector<std::vector<std::string > > board) {
     }
 }
 
-// Return the optimal action for the current player on the board
+// Return the optimal action for the current player
 Point minimax(std::vector<std::vector<std::string > > board) {
 
-    // First check if board is not termninal
+    // First check if TTT board is not termninal
     if (terminal(board) == true) {
         throw std::runtime_error("terminal board passed to minimax function");
     }
@@ -223,7 +223,7 @@ Point minimax(std::vector<std::vector<std::string > > board) {
     Point optimalMove(0,0);
     std::vector<Point*> v;
 
-    // If board is empty, return random move 
+    // If TTT board is empty just return random move 
     // Otherwise it takes quite a long time to calculate the first "optimal" move
     if (emptyCells(board) == 9) {
 
@@ -318,7 +318,7 @@ int highestValue(std::vector<std::vector<std::string > > board) {
     }
 }
 
-// Prints the board
+// Print the TTT board
 void printBoard(std::vector<std::vector<std::string> > board) {
 
     std::string line = "-------------";
@@ -353,13 +353,13 @@ void printBoard(std::vector<std::vector<std::string> > board) {
     }
 }
 
-// Convert cell number to coordinates on board
-// These coordinates are used to update the board (which is a 2d vector)
-// To actually draw a move on the window, different coordinates are used (see MoveToPos in helpers.h)
+// Convert cell number to corresponding row and column.
+// The row and column are used to keep track of all the moves,
+// which are stored in a 2d vector of strings representing the TTT board.
 Point moveConverter(int i) {
 
     int a, b;
-    switch (i) {             /////// CELLS //////       ////// COORDINATES //////
+    switch (i) {             /////// CELLS //////       ////// ROWS & COLS //////
         case 1:              //  | 1 | 2 | 3 | //       // | 0,0 | 0,1 | 0,2 | //
             a = 0;           //  | 3 | 5 | 6 | // --->  // | 1,0 | 1,1 | 1,2 | //
             b = 0;           //  | 7 | 8 | 9 | //       // | 2,0 | 2,1 | 2,2 | //
