@@ -81,7 +81,7 @@ std::vector<Point*> availableActions(std::vector<std::vector<std::string> > boar
 
             if (board[i][j] == EMPTY) {
                 Point* p;
-                p = new Point();
+                p = new Point(0,0);
                 p->x = i;
                 p->y = j;
                 vect.__emplace_back(p);
@@ -220,7 +220,7 @@ Point minimax(std::vector<std::vector<std::string > > board) {
     // Get the current player
     std::string currentPlayer = player(board);
 
-    Point optimalMove;
+    Point optimalMove(0,0);
     std::vector<Point*> v;
 
     // If board is empty, return random move 
@@ -398,7 +398,7 @@ Point moveConverter(int i) {
             break;
     }
 
-    Point p;
+    Point p(0,0);
     p.x = a;
     p.y = b;
     
