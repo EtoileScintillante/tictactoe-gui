@@ -12,6 +12,9 @@
  * and in the vector the move will be inserted as board[0][0] = "X".
  */
 
+#ifndef __POINT__
+#define __POINT__
+
 class Point {
 public:
     int x;
@@ -28,3 +31,5 @@ Point::Point(int X, int Y)
     x = X;
     y = Y;
 }
+
+#endif /*__POINT__*/
