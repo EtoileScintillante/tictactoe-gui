@@ -5,7 +5,6 @@
 int main()
 {   
     // Create window
-    //sf::RenderWindow window(sf::VideoMode(sf::Vector2u(600, 600)), "Tic Tac Toe");
     auto window = sf::RenderWindow{ { 900u, 900u }, "Tic Tac Toe" };
 
     // Initialize empty board and players
@@ -14,6 +13,10 @@ int main()
     bool chosenPlayer = false;
     bool gameOVER = false;
     int moveCount = 0;
+
+    /* Create 'lag' so that when the AI makes the first move
+    it does not draw the board and move at the same time (that looks ugly) */
+    int lag = 0;
 
     // Initialize vector to store text drawings
     std::vector<sf::Text> vt;
@@ -36,26 +39,26 @@ int main()
                 window.close();
         }
 
-        // Let user choose player 
+        // Let human choose player 
         if (chosenPlayer == false) {
             setPlayer(window, font, event, playerH, playerAI, chosenPlayer);
             sf::sleep(sf::Time(sf::seconds(0.3)));
         }
 
-        // Draw board if user has chosen a player
+        // Draw board if human has chosen a player
         else {
             window.clear();
 
             if (gameOVER == false) {
 
-                /// DRAW BOARD ///
+                // Draw board
                 drawBoard(window);
 
                 // Get the current player
                 std::string currPlayer = player(b);
 
-                // Display message saying X always begins when users chooses X
-                // so that the user knows they can make the first move
+                /* Display message saying X always begins when human chooses X
+                so that human knows they can make the first move */
                 if (moveCount < 1 && currPlayer == playerH) {
                     sf::Text text("Player X starts!", font, 30);
                     text.setFillColor(sf::Color::Yellow);
@@ -68,12 +71,12 @@ int main()
                 if (currPlayer == playerH) {
 
                     if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
-                        int cell = convertClick(sf::Mouse::getPosition(window)); // Convert click to cell number (the ttt board has 9 cells)
+                        int cell = convertClick(sf::Mouse::getPosition(window)); // Convert click to cell number
                         Point move = moveConverter(cell); // Convert cell number to row and column on the board (the 2d vector)
                         moveCount++;
                         sf::Text t(playerH, font, 180);
-                        t.setPosition(MoveToPos(&move)); // Convert row and column to coordinates of drawing on the window
-                        vt.push_back(t); // Store drawing of move in vector
+                        t.setPosition(MoveToPos(&move)); // Convert row and column to coordinates on the window
+                        vt.push_back(t); // Store drawing of move (X or O) in vector
                         b = result(b, &move); // Update board
                     }
                 }
@@ -86,13 +89,18 @@ int main()
                     b = result(b, &move); // Update board
                     moveCount++;
                     sf::Text t(playerAI, font, 180);
-                    t.setPosition(MoveToPos(&move)); // Convert coordinates of move to coordinates of drawing on the window
-                    vt.push_back(t); // Store move in vector
+                    t.setPosition(MoveToPos(&move)); // Convert row and column of move to coordinates of on the window
+                    vt.push_back(t); // Store drawing of move (X or O) in vector
                 }
 
-                /// DRAW ALL THE MADE MOVES ///
-                for (int i = 0; i < vt.size(); i++) {
+                // Increment lag
+                lag++;
+
+                // Draw the moves
+                if (lag > 200 && moveCount >= 1) {
+                    for (int i = 0; i < vt.size(); i++) {
                     window.draw(vt[i]);
+                }
                 }
             }
             
@@ -100,10 +108,11 @@ int main()
             if (terminal(b) == true) {
 
                 if (gameOVER == false) {
-                    // Show end result to user for a split second
-                    // before clearing everything
+                    /* Show end result to user for a split second
+                    before clearing everything */
                     window.display();
                     sf::sleep(sf::Time(sf::seconds(0.5)));
+                    lag = 0; // Lag back to zero
                     moveCount = 0; // Count back to zero
                     gameOVER = true;
                 }
@@ -119,10 +128,8 @@ int main()
                         displayEnding(window, "It's a tie!", b, chosenPlayer, font, event, vt, gameOVER);
                     }
                 }
-                
             }
         }
-
        window.display();
     }
     return 0;
