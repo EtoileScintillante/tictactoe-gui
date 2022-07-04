@@ -84,7 +84,7 @@ std::vector<Point*> availableActions(std::vector<std::vector<std::string> > boar
                 p = new Point(0,0);
                 p->x = i;
                 p->y = j;
-                vect.__emplace_back(p);
+                vect.emplace_back(p);
             }
         }
     }
