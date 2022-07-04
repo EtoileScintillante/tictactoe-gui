@@ -10,7 +10,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <stdexcept>
-#include <SFML/System.hpp>
+//#include <SFML/System.hpp>
 #include <string>
 #include "ttt.h"
 
