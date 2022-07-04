@@ -11,8 +11,8 @@
 #include <SFML/Graphics.hpp>
 #include <stdexcept>
 #include <SFML/System.hpp>
-#include "ttt.h"
 #include <string>
+#include "ttt.h"
 
 /**
  * Let the user pick a side, X or O.
