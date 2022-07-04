@@ -26,49 +26,128 @@ const int COL = 3;
 
 //TODO: FINISH DOCUMENTATION!
 
-// Returns vector with initial state of board (all empty cells)
+/**
+ * Initialize an empty Tic Tac Toe board.
+ * 
+ * @return 2d vector of strings filled with value EMPTY.
+ */
 std::vector<std::vector<std::string> > initialState();
 
-// Return empty cell count
+/**
+ * Get the empty cell count.
+ * 
+ * @param board 2d vector of strings representing the TTT board.
+ * @return empty cell count.
+ */
 int emptyCells(std::vector<std::vector<std::string> > board);
 
-// Return X or O, depending on whose turn it is
+
+/**
+ * Determine whose turn it is.
+ * Rule of this program: X always starts. 
+ * 
+ * @param board 2d vector of strings representing the TTT board
+ * @return player whose turn it is.
+ */
 std::string player(std::vector<std::vector<std::string> > board);
 
-// Return vector with available moves
+/**
+ * Get all the available moves. 
+ * 
+ * @param board 2d vector of strings representing the TTT board.
+ * @return vector of pointers to Points which represents the available moves.
+ */
 std::vector<Point*> availableActions(std::vector<std::vector<std::string> > board);
 
-// Returns the board that results from making move (i, j)
+/**
+ * Returns the TTT board that results from making move (x, y). 
+ * 
+ * @param board 2d vector of strings representing the TTT board.
+ * @param action pointer to Point representing the made move.
+ * @return 2d vector of strings representing the TTT board after performing the action.
+ */
 std::vector<std::vector<std::string> > result(std::vector<std::vector<std::string> > board, Point* action);
 
-// Deallocate memory 
+/**
+ * Free memory allocated on the heap.
+ * This function is called in minimax() to free the memory allocated
+ * by availableActions().
+ * 
+ * @param v vector of pointers.
+ * @see minimax
+ */
 void deleteVect(std::vector<Point*> v);
 
-// Return winner of the game, if there is one
+/**
+ * Returns the winner of the game if there is one. 
+ * 
+ * @param board 2d vector of strings representing the TTT board.
+ * @return winner of the game. If it's a tie, it returns "no winner".
+ */
 std::string winner (std::vector<std::vector< std::string > > board);
 
-// Returns true if the game is over, false otherwise
+/**
+ * Determine whether the TTT board is a terminal state,
+ * meaning the game is over. 
+ * 
+ * @param board 2d vector of strings representing the TTT board.
+ * @return true if the game is over, false otherwise.
+ */
 bool terminal(std::vector<std::vector<std::string > > board);
 
-// Return 1 if X has won, -1 if O has won, 0 otherwhise
-// X is maximizing player, O is minimizing player
+/**
+ * Determine the utility of the TTT board.
+ * This function is used by minimax() to get the optimal move. 
+ * 
+ * @see minimax
+ * @param board 2d vector of strings representing the TTT board.
+ * @return 1 if X has won, -1 if O has won, 0 otherwhise.
+ */
 int utility(std::vector<std::vector<std::string > > board);
 
-// Return the optimal action for the current player on the board
+/**
+ * Get the optimal move for the current player.
+ * O is minimizing player and X the maximizing player. 
+ * 
+ * @param board 2d vector of strings representing the TTT board.
+ * @return Point representing the optimal move.
+ */
 Point minimax(std::vector<std::vector<std::string > > board);
 
-// Function called by minimax() to determine optimal move
+/**
+ * Function called by minimax() to determine the optimal move.
+ * 
+ * @see minimax
+ * @param board 2d vector of strings representing the TTT board.
+ * @return utility of the TTT board.
+ */
 int lowestValue(std::vector<std::vector<std::string > > board);
 
-// Function called by minimax() to determine optimal move
+/**
+ * Function called by minimax() to determine the optimal move.
+ * 
+ * @see minimax
+ * @param board 2d vector of strings representing the TTT board.
+ * @return utility of the TTT board.
+ */
 int highestValue(std::vector<std::vector<std::string > > board);
 
-// Prints the board
+/**
+ * Print the TTT board.
+ * 
+ * @param board 2d vector of strings representing the TTT board.
+ */
 void printBoard(std::vector<std::vector<std::string> > board);
 
-// Convert cell number to coordinates on board
-// These coordinates are used to update the board (which is a 2d vector)
-// To actually draw a move on the window, different coordinates are used (see MoveToPos in helpers.h)
+/**
+ * Convert cell number (1-9) to row and column.
+ * This is convertion is needed to keep track of all the moves 
+ * in the 2d vector of strings representing the TTT board.
+ * See point.h for a better explanation.
+ * 
+ * @param i cell number.
+ * @return Point corresponding to the cell number.
+ */
 Point moveConverter(int i);
 
 #endif /*__TTT_FUNCTIONS__*/
