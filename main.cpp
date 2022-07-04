@@ -5,7 +5,7 @@
 int main()
 {   
     // Create window
-    auto window = sf::RenderWindow{ { 900u, 900u }, "Tic Tac Toe" };
+    auto window = sf::RenderWindow{ { 600u, 600u }, "Tic Tac Toe" };
 
     // Initialize empty board and players
     std::vector<std::vector< std::string > > b = initialState();
@@ -60,10 +60,10 @@ int main()
                 /* Display message saying X always begins when human chooses X
                 so that human knows they can make the first move */
                 if (moveCount < 1 && currPlayer == playerH) {
-                    sf::Text text("Player X starts!", font, 30);
+                    sf::Text text("Player X starts!", font, 18);
                     text.setFillColor(sf::Color::Yellow);
                     text.setStyle(sf::Text::Bold);
-                    text.setPosition(sf::Vector2f(350, 40));
+                    text.setPosition(sf::Vector2f(230, 30));
                     window.draw(text);
                 }
                 
@@ -74,7 +74,7 @@ int main()
                         int cell = convertClick(sf::Mouse::getPosition(window)); // Convert click to cell number
                         Point move = moveConverter(cell); // Convert cell number to row and column on the board (the 2d vector)
                         moveCount++;
-                        sf::Text t(playerH, font, 180);
+                        sf::Text t(playerH, font, 120);
                         t.setPosition(MoveToPos(&move)); // Convert row and column to coordinates on the window
                         vt.push_back(t); // Store drawing of move (X or O) in vector
                         b = result(b, &move); // Update board
@@ -88,7 +88,7 @@ int main()
                     Point move = minimax(b);
                     b = result(b, &move); // Update board
                     moveCount++;
-                    sf::Text t(playerAI, font, 180);
+                    sf::Text t(playerAI, font, 120);
                     t.setPosition(MoveToPos(&move)); // Convert row and column of move to coordinates of on the window
                     vt.push_back(t); // Store drawing of move (X or O) in vector
                 }
