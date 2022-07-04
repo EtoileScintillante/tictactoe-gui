@@ -54,8 +54,8 @@ int main()
                 // Get the current player
                 std::string currPlayer = player(b);
 
-                // Display message saying X always begins hen users chooses X
-                // so that the user knows that they can make the first move
+                // Display message saying X always begins when users chooses X
+                // so that the user knows they can make the first move
                 if (moveCount < 1 && currPlayer == playerH) {
                     sf::Text text("Player X starts!", font, 30);
                     text.setFillColor(sf::Color::Yellow);
