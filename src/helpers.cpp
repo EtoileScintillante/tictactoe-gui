@@ -1,7 +1,7 @@
 #include "helpers.h"
 
 // Let user pick a side, X or O
-void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, string &playerH, string &playerAI, bool &chosenPlayer)
+void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, std::string &playerH, std::string &playerAI, bool &chosenPlayer)
 {
     sf::RectangleShape rectangle(sf::Vector2f(400.f, 150.f));
     rectangle.setFillColor(sf::Color(0,0,0));
@@ -122,7 +122,7 @@ int convertClick(sf::Vector2i v)
         return 9;
     }
 
-    throw invalid_argument("Invalid mouse coordinates");
+    throw std::invalid_argument("Invalid mouse coordinates");
 }
 
 // Convert move to a position on the window
@@ -172,7 +172,7 @@ sf::Vector2f MoveToPos(Point* p)
 }
 
 // Display winner and ask user to play again
-void displayEnding(sf::RenderWindow &window, string winMsg, vector<vector< string > > &board, bool &chosenplayer, sf::Font font, sf::Event &event, vector<sf::Text> &v, bool &gameover)
+void displayEnding(sf::RenderWindow &window, std::string winMsg, std::vector<std::vector< std::string > > &board, bool &chosenplayer, sf::Font font, sf::Event &event, std::vector<sf::Text> &v, bool &gameover)
 {
     sf::RectangleShape rectangle(sf::Vector2f(400.f, 150.f));
     rectangle.setFillColor(sf::Color(0,0,0));
@@ -191,7 +191,7 @@ void displayEnding(sf::RenderWindow &window, string winMsg, vector<vector< strin
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
     {
-        // Set everything variables back to initial state if user wants to play again
+        // Set variables back to initial state if user wants to play again
         v.clear();  
         window.clear();
         board = initialState();
