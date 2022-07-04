@@ -65,7 +65,7 @@ void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, std::s
 
 }
 
-// Draw the board (the lines)
+// Draw the horizontal and vertical lines of the TTT board
 void drawBoard(sf::RenderWindow &window) 
 {
     sf::RectangleShape hline1(sf::Vector2f(600, 5)); // Horizontal
@@ -88,7 +88,7 @@ void drawBoard(sf::RenderWindow &window)
 
 // Convert mouse click to integer
 // The integer is used in the moveConverter function in ttt.h
-// That function converts the integer to coordinates on the board (the 2d vector)
+// In turn, moveConverter converts the integer to a Point which is then used to keep track of the moves
 int convertClick(sf::Vector2i v)
 {
     int x = v.x;
