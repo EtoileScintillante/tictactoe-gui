@@ -20,16 +20,7 @@ public:
     int x;
     int y;
     Point(int X, int Y);
-    void print() 
-    {
-        printf("(%i, %i)\n", x, y);
-    }
+    void setPoint(int X, int Y);
 };
-
-Point::Point(int X, int Y)
-{
-    x = X;
-    y = Y;
-}
 
 #endif /*__POINT__*/
