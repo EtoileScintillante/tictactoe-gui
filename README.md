@@ -3,7 +3,7 @@
 Play a game of Tic Tac Toe against an AI!
 
 ## Example
-<img src="https://github.com/EtoileScintillante/tictactoe-gui/blob/master/docs/example.gif" width="400" height="400" alt="example gif" />
+<img src="https://github.com/EtoileScintillante/tictactoe-gui/blob/master/docs/runner.gif" width="400" height="400" alt="example gif" />
 
 ## Configure and build
 #### Single-configuration generator (typically the case on Linux and macOS)
