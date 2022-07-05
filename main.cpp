@@ -51,15 +51,17 @@ int main()
 
             if (gameOVER == false) {
 
+                // Increment lag
+                lag++;
+
                 // Draw board
                 drawBoard(window);
 
                 // Get the current player
                 std::string currPlayer = player(b);
 
-                /* Display message saying X always begins when human chooses X
-                so that human knows they can make the first move */
-                if (moveCount < 1 && currPlayer == playerH) {
+                // Display message saying X always begins so that human knows they can or cannot make the first move 
+                if (lag < 2000) { 
                     sf::Text text("Player X starts!", font, 18);
                     text.setFillColor(sf::Color::Yellow);
                     text.setStyle(sf::Text::Bold);
@@ -93,14 +95,11 @@ int main()
                     vt.push_back(t); // Store drawing of move (X or O) in vector
                 }
 
-                // Increment lag
-                lag++;
-
                 // Draw the moves
-                if (lag > 200 && moveCount >= 1) {
+                if (lag > 1800 && moveCount >= 1) {
                     for (int i = 0; i < vt.size(); i++) {
                     window.draw(vt[i]);
-                }
+                    }
                 }
             }
             
