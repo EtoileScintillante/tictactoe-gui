@@ -185,9 +185,9 @@ void displayEnding(sf::RenderWindow &window, std::string winMsg, std::vector<std
         text.setPosition(sf::Vector2f(160, 220));
     }
     else{
-        text.setPosition(sf::Vector2f(140, 220));
+        text.setPosition(sf::Vector2f(160, 220));
     }
-    text1.setPosition(sf::Vector2f(210, 280));
+    text1.setPosition(sf::Vector2f(205, 280));
     text.setStyle(sf::Text::Bold);
 
     window.draw(rectangle);
