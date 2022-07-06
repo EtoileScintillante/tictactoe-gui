@@ -10,7 +10,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <stdexcept>
-//#include <SFML/System.hpp>
 #include <string>
 #include "ttt.h"
 
@@ -45,6 +44,7 @@ void drawBoard(sf::RenderWindow &window);
  * 
  * @param v Vector2i which holds the coordinates of the mouseclick
  * @return integer representing the cell on which the user clicked 
+ * @throws std::invalid_argument thrown if mouse coordinates are invalid.
  */
 int convertClick(sf::Vector2i v);
   
@@ -60,7 +60,7 @@ sf::Vector2f MoveToPos(Point* p);
 /**
  * Display the winner and ask user to play again or not.
  * In case the user wants to play again, some boolean variables will be reset.
- * In addition, the 2d vector representing the TTT baord and the vector holding 
+ * In addition, the 2d vector representing the TTT board and the vector holding 
  * the drawings of the Xs and Os board will both be cleared.
  * 
  * @param[out] window window that will be rendered.

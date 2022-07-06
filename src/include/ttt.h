@@ -65,6 +65,7 @@ std::vector<Point*> availableActions(std::vector<std::vector<std::string> > boar
  * @param board 2d vector of strings representing the TTT board.
  * @param action pointer to Point representing the made move.
  * @return 2d vector of strings representing the TTT board after performing the action.
+ * @throws std::invalid_argument thrown if move is invalid.
  */
 std::vector<std::vector<std::string> > result(std::vector<std::vector<std::string> > board, Point* action);
 
@@ -102,6 +103,7 @@ bool terminal(std::vector<std::vector<std::string > > board);
  * @see minimax
  * @param board 2d vector of strings representing the TTT board.
  * @return 1 if X has won, -1 if O has won, 0 otherwhise.
+ * @throws std::runtime_error thrown if terminal board is passed to utility function.
  */
 int utility(std::vector<std::vector<std::string > > board);
 
@@ -111,6 +113,7 @@ int utility(std::vector<std::vector<std::string > > board);
  * 
  * @param board 2d vector of strings representing the TTT board.
  * @return Point representing the optimal move.
+ * @throws std::runtime_error thrown if terminal board is passed to minimax function.
  */
 Point minimax(std::vector<std::vector<std::string > > board);
 
