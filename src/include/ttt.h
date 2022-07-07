@@ -24,8 +24,6 @@ const std::string O = "O";
 const int ROW = 3;  // 3 x 3 board
 const int COL = 3;
 
-//TODO: FINISH DOCUMENTATION!
-
 /**
  * Initialize an empty Tic Tac Toe board.
  * 
@@ -103,7 +101,7 @@ bool terminal(std::vector<std::vector<std::string > > board);
  * @see minimax
  * @param board 2d vector of strings representing the TTT board.
  * @return 1 if X has won, -1 if O has won, 0 otherwhise.
- * @throws std::runtime_error thrown if terminal board is passed to utility function.
+ * @throws std::runtime_error thrown if non terminal board is passed to utility function.
  */
 int utility(std::vector<std::vector<std::string > > board);
 
