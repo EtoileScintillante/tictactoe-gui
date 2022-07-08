@@ -8,12 +8,12 @@ void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, std::s
     rectangle.setOutlineThickness(10.f);
     rectangle.setPosition(sf::Vector2f(100, 200));
 
-    sf::Text text("Choose player:", font, 30);
-    sf::Text textX("X", font, 45);
-    sf::Text textO("O", font, 45);
+    sf::Text text("Choose player", font, 30);
+    sf::Text textX("X", font, 55);
+    sf::Text textO("O", font, 55);
     text.setPosition(sf::Vector2f(200, 220));
-    textX.setPosition(sf::Vector2f(200, 280));
-    textO.setPosition(sf::Vector2f(370, 280));
+    textX.setPosition(sf::Vector2f(215, 270));
+    textO.setPosition(sf::Vector2f(345, 270));
     text.setStyle(sf::Text::Bold);
     textX.setStyle(sf::Text::Bold);
     textO.setStyle(sf::Text::Bold);
@@ -22,7 +22,19 @@ void setPlayer(sf::RenderWindow &window, sf::Font font, sf::Event &event, std::s
     window.draw(text);
     window.draw(textX);
     window.draw(textO);
-    
+
+    // If mouse hovers over X, set color to green
+    if (textX.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+    {
+        textX.setFillColor(sf::Color::Green);
+        window.draw(textX);
+    }
+    // If mouse hovers over O, set color to green
+    if (textO.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+    {
+        textO.setFillColor(sf::Color::Green);
+        window.draw(textO);
+    }
     if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) 
     {
         if (textX.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) 
@@ -86,9 +98,7 @@ void drawBoard(sf::RenderWindow &window)
     window.draw(vline2);
 }
 
-// Convert mouse click to integer
-// The integer is used in the moveConverter function in ttt.h
-// That function converts the integer to coordinates on the board (the 2d vector)
+// Convert mouse click to integer (cell number)
 int convertClick(sf::Vector2i v)
 {
     int x = v.x;
@@ -126,50 +136,49 @@ int convertClick(sf::Vector2i v)
 }
 
 // Convert move to a position on the window
- // These x and y coordinates are used to draw the text (X/O) on the window at the right place
- sf::Vector2f MoveToPos(Point* p)
- {
-     sf::Vector2f v;
+sf::Vector2f MoveToPos(Point* p)
+{
+    sf::Vector2f v;
 
-     if (p->x == 0 && p->y == 0) {           ///////// COORDINATES WINDOW ////////
-         v.x = 60;                           // | 60,30  | 260,30  | 460, 30  | //
-         v.y = 30;                           // | 60,230 | 260,230 | 460, 230 | //                                       
-     }                                       // | 60,430 | 260,430 | 460, 430 | //
-     if (p->x == 1 && p->y == 0) {           /////////////////////////////////////
-         v.x = 60;
-         v.y = 230;
-     }
-     if (p->x == 2 && p->y == 0) {
-         v.x = 60;
-         v.y = 430;
-     }
-     if (p->x == 0 && p->y == 1) {
-         v.x = 260;
-         v.y = 30;
-     }
-     if (p->x == 1 && p->y == 1) {
-         v.x = 260;
-         v.y = 230;
-     }
-     if (p->x == 2 && p->y == 1) {
-         v.x = 260;
-         v.y = 430;
-     }
-     if (p->x == 0 && p->y == 2) {
-         v.x = 460;
-         v.y = 30;
-     }
-     if (p->x == 1 && p->y == 2) {
-         v.x = 460;
-         v.y = 230;
-     }
-     if (p->x == 2 && p->y == 2) {
-         v.x = 460;
-         v.y = 430;
-     }
+    if (p->x == 0 && p->y == 0) {           ///////// COORDINATES WINDOW ////////
+        v.x = 60;                           // | 60,30  | 260,30  | 460, 30  | //
+        v.y = 30;                           // | 60,230 | 260,230 | 460, 230 | //                                       
+    }                                       // | 60,430 | 260,430 | 460, 430 | //
+    if (p->x == 1 && p->y == 0) {           /////////////////////////////////////
+        v.x = 60;
+        v.y = 230;
+    }
+    if (p->x == 2 && p->y == 0) {
+        v.x = 60;
+        v.y = 430;
+    }
+    if (p->x == 0 && p->y == 1) {
+        v.x = 260;
+        v.y = 30;
+    }
+    if (p->x == 1 && p->y == 1) {
+        v.x = 260;
+        v.y = 230;
+    }
+    if (p->x == 2 && p->y == 1) {
+        v.x = 260;
+        v.y = 430;
+    }
+    if (p->x == 0 && p->y == 2) {
+        v.x = 460;
+        v.y = 30;
+    }
+    if (p->x == 1 && p->y == 2) {
+        v.x = 460;
+        v.y = 230;
+    }
+    if (p->x == 2 && p->y == 2) {
+        v.x = 460;
+        v.y = 430;
+    }
 
-     return v;
- }
+    return v;
+}
 
 // Display winner and ask user to play again
 void displayEnding(sf::RenderWindow &window, std::string winMsg, std::vector<std::vector< std::string > > &board, bool &chosenplayer, sf::Font font, sf::Event &event, std::vector<sf::Text> &v, bool &gameover)
@@ -178,21 +187,30 @@ void displayEnding(sf::RenderWindow &window, std::string winMsg, std::vector<std
     rectangle.setFillColor(sf::Color(0,0,0));
     rectangle.setOutlineThickness(10.f);
     rectangle.setPosition(sf::Vector2f(100, 200));
-
-    sf::Text text(winMsg + " Play again?", font, 30);
-    sf::Text text1("Press [y] or [n]", font, 30);
+    
+    sf::Text text(winMsg, font, 35);
+    sf::Text text1("Press Y to play again", font, 22);
+    sf::Text text2("Press N to quit", font, 22);
     if (winMsg == "AI won!"){
-        text.setPosition(sf::Vector2f(160, 220));
+        text.setPosition(sf::Vector2f(235, 210));
+        text.setFillColor(sf::Color::Red);
     }
-    else{
-        text.setPosition(sf::Vector2f(160, 220));
+    else if (winMsg == "Human won!") {
+        text.setPosition(sf::Vector2f(225, 210));
+        text.setFillColor(sf::Color::Green);
     }
-    text1.setPosition(sf::Vector2f(205, 280));
+    else {
+        text.setPosition(sf::Vector2f(225, 210));
+        text.setFillColor(sf::Color::Yellow);
+    }
     text.setStyle(sf::Text::Bold);
+    text1.setPosition(sf::Vector2f(200, 270));
+    text2.setPosition(sf::Vector2f(228, 310));
 
     window.draw(rectangle);
     window.draw(text);
     window.draw(text1);
+    window.draw(text2);
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Y))
     {
